@@ -55,3 +55,9 @@
   
 - `Retrieval Augmented Generation` - Retrieval augmented generation (RAG) is a natural language processing (NLP) technique that combines the strengths of both retrieval- and generative-based artificial intelligence (AI) models.
 
+## 🔗 Stat
+```md
+npx prisma studio
+
+npx prisma migrate dev --name init
+```

@@ -1,0 +1,36 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Chat {
+  id        Int       @id @default(autoincrement())
+  pdfName   String
+  pdfUrl    String
+  createdAt DateTime  @default(now())
+  userId    String    @db.VarChar(256)
+  fileKey   String // this is for s3
+  messages  Message[]
+
+  @@map("chats")
+}
+
+enum UserSystemEnum {
+  system
+  user
+}
+
+model Message {
+  id        Int            @id @default(autoincrement())
+  chatId    Int
+  content   String
+  createdAt DateTime       @default(now())
+  role      UserSystemEnum
+  chat      Chat           @relation(fields: [chatId], references: [id])
+
+  @@map("messages")
+}
