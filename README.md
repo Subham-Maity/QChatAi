@@ -61,3 +61,31 @@ npx prisma studio
 
 npx prisma migrate dev --name init
 ```
+- `s3 policy` - `arn:aws:s3:::<bucket-name>/<key-name-prefix>`
+```json
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "PublicReadGetObject",
+            "Effect": "Allow",
+            "Principal": "*",
+            "Action": "s3:GetObject",
+            "Resource": "arn:aws:{bucket-name}:::{key-name-prefix}/*"
+        }
+    ]
+}
+```
+- `Cors`
+```json
+[
+  {
+    "AllowedHeaders": ["*"],
+    "AllowedMethods": [
+      "PUT", "POST", "DELETE", "GET"
+    ],
+    "AllowedOrigins": ["*"],
+    "ExposeHeaders": []
+  }
+]
+```

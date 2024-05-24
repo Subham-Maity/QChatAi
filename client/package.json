@@ -11,6 +11,7 @@
   "dependencies": {
     "@clerk/nextjs": "^5.1.2",
     "@radix-ui/react-slot": "^1.0.2",
+    "axios": "^1.7.2",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "lucide-react": "^0.379.0",
@@ -18,6 +19,9 @@
     "prettier": "^3.2.5",
     "react": "^18",
     "react-dom": "^18",
+    "react-dropzone": "^14.2.3",
+    "react-query": "^3.39.3",
+    "sonner": "^1.4.41",
     "tailwind-merge": "^2.3.0",
     "tailwindcss-animate": "^1.0.7"
   },
