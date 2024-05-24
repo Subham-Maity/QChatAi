@@ -1,13 +1,15 @@
 "use client";
 import React from "react";
-import { Inbox } from "lucide-react";
+import { Inbox, Loader2 } from "lucide-react";
 import { useDropzone } from "react-dropzone";
 import { toast, Toaster } from "sonner";
 import { useMutation } from "react-query";
 import { uploadFile } from "@/components/upload/api/upload-file.api";
+import { useRouter } from "next/navigation";
 
 const FileUpload = () => {
   const [uploading, setUploading] = React.useState(false);
+  const router = useRouter();
 
   const { mutate, isLoading } = useMutation({
     mutationFn: async (file: File) => {
@@ -33,10 +35,10 @@ const FileUpload = () => {
       }
 
       mutate(file, {
-        onSuccess: ({ fileUrl }) => {
+        onSuccess: ({ chat_id }) => {
           // Handle successful upload
           toast.success("File uploaded successfully!");
-          console.log("File URL:", fileUrl);
+          router.push(`/chat/${chat_id}`);
         },
         onError: (error) => {
           console.error("Error uploading file:", error);
@@ -56,10 +58,20 @@ const FileUpload = () => {
           })}
         >
           <input {...getInputProps()} />
-          <>
-            <Inbox className="w-10 h-10 text-blue-500" />
-            <p className="mt-2 text-sm text-slate-400">Drop PDF Here</p>
-          </>
+          {uploading || isLoading ? (
+            <>
+              {/* loading state */}
+              <Loader2 className="h-10 w-10 text-blue-500 animate-spin" />
+              <p className="mt-2 text-sm text-slate-400">
+                Wait for the file to be uploaded...
+              </p>
+            </>
+          ) : (
+            <>
+              <Inbox className="w-10 h-10 text-blue-500" />
+              <p className="mt-2 text-sm text-slate-400">Drop PDF Here</p>
+            </>
+          )}
         </div>
       </div>
     </>
