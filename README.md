@@ -49,3 +49,9 @@
     - Build Docker images for the backend API and BullMQ worker.
     - Create a Docker Compose file to define and run the containers for the backend API, BullMQ worker, and PostgreSQL database.
 
+## 🔗 Quick Notes - What I need to research for this one
+
+- `Edge Runtime` - A system that deploys our application code onto Content Delivery Networks (CDNs) around the world. CDNs are small machines distributed across different geographic regions. In a traditional setup, our server is hosted in one central location. Users far away from that location experience slower response times due to the distance their requests have to travel. With the Edge Runtime, our code is replicated and deployed on CDNs worldwide. When a user makes a request, it's served by the nearest CDN, providing lightning-fast response times, no matter where the user is located. The trade-off is that the Edge Runtime has limitations on package size and available APIs compared to a traditional server environment. We can't use all Node.js APIs and npm packages, but if our application can work with the supported APIs, we can achieve superior user experience with minimal latency globally.
+  
+- `Retrieval Augmented Generation` - Retrieval augmented generation (RAG) is a natural language processing (NLP) technique that combines the strengths of both retrieval- and generative-based artificial intelligence (AI) models.
+
