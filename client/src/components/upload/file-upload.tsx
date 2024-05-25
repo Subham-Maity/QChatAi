@@ -1,23 +1,24 @@
 "use client";
 import React from "react";
-import { Inbox, Loader2 } from "lucide-react";
-import { useDropzone } from "react-dropzone";
-import { toast, Toaster } from "sonner";
-import { useMutation } from "react-query";
-import { uploadFile } from "@/components/upload/api/upload-file.api";
-import { useRouter } from "next/navigation";
+import {Inbox, Loader2} from "lucide-react";
+import {useDropzone} from "react-dropzone";
+import {toast, Toaster} from "sonner";
+import {useMutation} from "react-query";
+import {useRouter} from "next/navigation";
+import {createChat} from "@/components/upload/api/create-chat.api";
+import {uploadFile} from "@/components/upload/api/upload-file.api";
 
 const FileUpload = () => {
   const [uploading, setUploading] = React.useState(false);
   const router = useRouter();
 
   const { mutate, isLoading } = useMutation({
-    mutationFn: async (file: File) => {
+    mutationFn: async (uploadResponse: { fileUrl: string; fileKey: string }) => {
       setUploading(true);
       try {
-        return await uploadFile(file);
+        return await createChat(uploadResponse);
       } catch (error) {
-        console.error("Error uploading file:", error);
+        console.error('Error creating chat:', error);
         throw error;
       } finally {
         setUploading(false);
@@ -25,31 +26,29 @@ const FileUpload = () => {
     },
   });
   const { getRootProps, getInputProps } = useDropzone({
-    accept: { "application/pdf": [".pdf"] },
+    accept: { 'application/pdf': ['.pdf'] },
     maxFiles: 1,
     onDrop: async (acceptedFiles) => {
       const file = acceptedFiles[0];
       if (file.size > 10 * 1024 * 1024) {
-        toast.error("File too large");
+        toast.error('File too large');
         return;
       }
 
-      mutate(file, {
+      mutate(await uploadFile(file), {
         onSuccess: ({ chat_id }) => {
-          // Handle successful upload
-          toast.success("File uploaded successfully!");
+          toast.success('Chat created!');
           router.push(`/chat/${chat_id}`);
         },
         onError: (error) => {
-          console.error("Error uploading file:", error);
-          toast.error("Error uploading file");
+          console.error('Error creating chat:', error);
+          toast.error('Error creating chat');
         },
       });
     },
   });
   return (
     <>
-      <Toaster position="top-right" />
       <div className="p-2 bg-white rounded-xl">
         <div
           {...getRootProps({
