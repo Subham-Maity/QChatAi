@@ -11,9 +11,6 @@ import { Document, Page, pdfjs } from "react-pdf";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
   DialogTrigger,
 } from "@/components/ui/shadcn/dialog";
 import { Button } from "@/components/ui/shadcn/button";
@@ -38,7 +35,8 @@ const FileUpload = () => {
       try {
         const chatResponse = await createChat(uploadResponse);
         toast.success("Chat created!");
-        router.push(`/chat/${chatResponse.chat_id}`);
+        console.log(JSON.stringify(chatResponse) + "chatResponse");
+        // router.push(`/chat/${chatResponse.chat_id}`);
       } catch (error) {
         console.error("Error creating chat:", error);
         toast.error("Error creating chat");

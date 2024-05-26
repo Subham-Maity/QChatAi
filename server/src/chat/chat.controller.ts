@@ -9,7 +9,6 @@ export class ChatController {
   @Post('create')
   async createChat(@Body() createChatDto: CreateChatDto) {
     // Call the service method to create the chat
-    const chatId = await this.chatService.createChat(createChatDto);
-    return { message: 'success', chatId };
+    return await this.chatService.createChat(createChatDto);
   }
 }

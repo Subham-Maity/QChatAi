@@ -6,6 +6,6 @@ import { PineconeService } from '../pinecone/pinecone.service';
 export class ChatService {
   constructor(private readonly pineconeService: PineconeService) {}
   async createChat(createChatDto: CreateChatDto) {
-    await this.pineconeService.loadS3IntoPinecone(createChatDto.fileKey);
+    return await this.pineconeService.loadS3IntoPinecone(createChatDto.fileKey);
   }
 }

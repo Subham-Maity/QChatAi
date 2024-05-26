@@ -34,6 +34,9 @@
     "aws-sdk": "^2.1627.0",
     "class-validator": "^0.14.1",
     "helmet": "^7.1.0",
+    "langchain": "^0.2.2",
+    "pdf-lib": "^1.17.1",
+    "pdf-parse": "^1.1.1",
     "prisma": "^5.14.0",
     "reflect-metadata": "^0.2.0",
     "rxjs": "^7.8.1"

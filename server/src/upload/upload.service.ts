@@ -8,6 +8,9 @@ import {
 import { ConfigService } from '@nestjs/config';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 import { Readable, PassThrough } from 'stream';
+import * as fs from 'node:fs';
+import * as path from 'node:path';
+
 @Injectable()
 export class UploadService {
   private readonly s3Client: S3Client;
@@ -62,7 +65,7 @@ export class UploadService {
   getFileKeys(): string[] {
     return this.fileKeys;
   }
-  async downloadFromS3(fileKey: string): Promise<Readable> {
+  async downloadFromS3(fileKey: string): Promise<string> {
     const params = {
       Bucket: this.bucketName,
       Key: fileKey,
@@ -72,11 +75,27 @@ export class UploadService {
 
     if (obj.Body instanceof Readable) {
       const fileStream = obj.Body;
+      const tempFilePath = path.join(
+        __dirname,
+        '..',
+        '..',
+        'temp-s3',
+        `pdf-${Date.now()}.pdf`,
+      );
       const tempFilePassThrough = new PassThrough();
 
       fileStream.pipe(tempFilePassThrough);
 
-      return tempFilePassThrough;
+      return new Promise<string>((resolve, reject) => {
+        const fileWriteStream = fs.createWriteStream(tempFilePath);
+        tempFilePassThrough.pipe(fileWriteStream);
+        fileWriteStream.on('finish', () => {
+          resolve(tempFilePath);
+        });
+        fileWriteStream.on('error', (err) => {
+          reject(err);
+        });
+      });
     } else {
       throw new Error('Invalid response body');
     }
