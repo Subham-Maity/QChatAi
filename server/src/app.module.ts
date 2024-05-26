@@ -4,9 +4,10 @@ import { ConfigModule } from '@nestjs/config';
 import { LoggerMiddleware } from './common';
 import { ChatModule } from './chat/chat.module';
 import { PineconeModule } from './pinecone/pinecone.module';
+import { OpenaiModule } from './openai/openai.module';
 
 @Module({
-  imports: [UploadModule, ConfigModule.forRoot({ isGlobal: true }), ChatModule, PineconeModule],
+  imports: [UploadModule, ConfigModule.forRoot({ isGlobal: true }), ChatModule, PineconeModule, OpenaiModule],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
