@@ -29,6 +29,7 @@
     "@nestjs/mapped-types": "*",
     "@nestjs/platform-express": "^10.0.0",
     "@nestjs/throttler": "^5.1.2",
+    "@pinecone-database/pinecone": "^2.2.1",
     "@prisma/client": "5.14.0",
     "aws-sdk": "^2.1627.0",
     "class-validator": "^0.14.1",

@@ -10,7 +10,10 @@
   },
   "dependencies": {
     "@clerk/nextjs": "^5.1.2",
+    "@radix-ui/react-dialog": "^1.0.5",
     "@radix-ui/react-slot": "^1.0.2",
+    "@react-hook/resize-observer": "^2.0.1",
+    "@react-pdf/renderer": "^3.4.4",
     "axios": "^1.7.2",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
@@ -20,6 +23,7 @@
     "react": "^18",
     "react-dom": "^18",
     "react-dropzone": "^14.2.3",
+    "react-pdf": "^8.0.2",
     "react-query": "^3.39.3",
     "sonner": "^1.4.41",
     "tailwind-merge": "^2.3.0",
