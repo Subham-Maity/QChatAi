@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { CreateChatDto } from './dto';
-import { PineconeService } from '../pinecone/pinecone.service';
+import { PineconeService } from '../pinecone/service/pinecone.service';
 
 @Injectable()
 export class ChatService {

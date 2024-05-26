@@ -32,6 +32,9 @@ dependencies:
   '@nestjs/throttler':
     specifier: ^5.1.2
     version: 5.1.2(@nestjs/common@10.3.8)(@nestjs/core@10.3.8)(reflect-metadata@0.2.2)
+  '@pinecone-database/doc-splitter':
+    specifier: ^0.0.1
+    version: 0.0.1
   '@pinecone-database/pinecone':
     specifier: ^2.2.1
     version: 2.2.1
@@ -1859,6 +1862,11 @@ packages:
     resolution: {integrity: sha512-dQK2FUMQtowVP00mtIksrlZhdFXQZPC+taih1q4CvPZ5vqdxR/LKBaFg0oAfzd1GlHZXXSPdQfzQnt+ViGvEIQ==}
     dependencies:
       pako: 1.0.11
+    dev: false
+
+  /@pinecone-database/doc-splitter@0.0.1:
+    resolution: {integrity: sha512-UCJgNZKnXPcrTblI9ui6H+HbQbyYf8bsGQAGR3f4IYW2Lw1zQ0izFrjGsCgqiP+GE837JXv43+qgkSqwWlnZtA==}
+    engines: {node: '>=14.0.0'}
     dev: false
 
   /@pinecone-database/pinecone@2.2.1:

@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { PineconeService } from './pinecone.service';
+import { PineconeService } from './service/pinecone.service';
 import { PineconeController } from './pinecone.controller';
 import { UploadService } from '../upload/upload.service';
 import { ConfigModule, ConfigService } from '@nestjs/config';

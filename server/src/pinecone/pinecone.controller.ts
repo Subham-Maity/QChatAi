@@ -1,5 +1,5 @@
 import { Controller } from '@nestjs/common';
-import { PineconeService } from './pinecone.service';
+import { PineconeService } from './service/pinecone.service';
 
 @Controller('pinecone')
 export class PineconeController {
