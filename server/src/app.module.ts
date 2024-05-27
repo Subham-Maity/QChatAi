@@ -6,6 +6,7 @@ import { UploadModule } from './upload';
 import { ChatModule } from './chat';
 import { PineconeModule } from './pinecone';
 import { OpenaiModule } from './openai';
+import { PrismaModule } from './prisma/prisma.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { OpenaiModule } from './openai';
     ChatModule,
     PineconeModule,
     OpenaiModule,
+    PrismaModule,
   ],
 })
 export class AppModule implements NestModule {

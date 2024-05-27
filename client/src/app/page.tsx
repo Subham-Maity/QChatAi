@@ -37,7 +37,7 @@ export default async function Home() {
             {isAuth ? (
               <>
                 {" "}
-                <FileUpload />
+                <FileUpload userId={userId} />
               </>
             ) : (
               <>

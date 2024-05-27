@@ -14,10 +14,11 @@ import {
   DialogTrigger,
 } from "@/components/ui/shadcn/dialog";
 import { Button } from "@/components/ui/shadcn/button";
+import { FileUploadProps } from "@/components/upload/types/file-upload.types";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
 
-const FileUpload = () => {
+const FileUpload: React.FC<FileUploadProps> = ({ userId }) => {
   const router = useRouter();
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [filePreview, setFilePreview] = useState<string | null>(null);
@@ -33,10 +34,11 @@ const FileUpload = () => {
     },
     onSuccess: async (uploadResponse) => {
       try {
-        const chatResponse = await createChat(uploadResponse);
+        const chatRequestData = { ...uploadResponse, userId };
+        const chatResponse = await createChat(chatRequestData);
+        console.log("Chat created:", JSON.stringify(chatResponse));
         toast.success("Chat created!");
-        console.log(JSON.stringify(chatResponse) + "chatResponse");
-        // router.push(`/chat/${chatResponse.chat_id}`);
+        router.push(`/chat/${chatResponse.id}`);
       } catch (error) {
         console.error("Error creating chat:", error);
         toast.error("Error creating chat");
