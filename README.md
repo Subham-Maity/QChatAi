@@ -1,61 +1,60 @@
-# second_brain_labs
+# Chat with PDF - RAG
+## 🔗 Frameworks
 
-## 🔗 Task 
+### ⇉⟭`Server`
+- [NestJs](https://nestjs.com/)(Express), [rxjs](https://rxjs.dev/), [prisma](https://www.prisma.io/), [openai](https://beta.openai.com/), [Redis](https://redis.io/), [BullMQ](https://docs.bullmq.io/), [Postgres](https://www.postgresql.org/), [Vector Embeddings](https://docs.pinecone.io/docs/vector-embeddings), [Pinecone](https://www.pinecone.io/), [Pgvector](https://github.com/pgvector/pgvector), [Docker](https://www.docker.com/)
 
-1. User can create a project on the frontend, providing - Title, Description and a PDF file (uploaded to cloud bucket like s3) stored in Postgres.
+### ⇉⟭`Client`
+- [Next.js](https://nextjs.org/), [TailwindCSS](https://tailwindcss.com/), [React Query](https://tanstack.com/query/v3/), [Redux](https://redux.js.org/), [axios](https://axios-http.com/), [lucide-react](https://lucide.dev/), [sonner](https://sonner.emilkowal.ski/), [shadcn](https://ui.shadcn.com/)
 
-2. On the backend we process the pdf file to generate Vector Embeddings of the content inside the PDF and store that in Postgres. Note that the processing should happen in BullMQ worker.
+## 🔗 Environment Setup
+### ⇉⟭`Server`
+> Make `.env` - `server\.env`
+```dotenv
+#server port
+PORT=3333
+DATABASE_URL="postgresql://neondb_owner:********/neondb?sslmode=require"
 
-3. User could view all the projects from the frontend dashboard with the status -> 'creating', 'failed', 'created'.
+#s3
+AWS_ACCESS_KEY_ID=A********P**T********VN
+AWS_SECRET_ACCESS_KEY=M********U9J********aYr4********Yostzb
+AWS_S3_REGION=us-east-1
+AWS_S3_BUCKET_NAME=********
 
-4. Users can open up any project where they will be shown a chat interface like ChatGPT to ask questions and get the relevant answers from the Vectors stored in Postgres with proper context. (You could use any LLM APIs).
+#Rate Limit
+UPLOAD_RATE_TTL=60
+UPLOAD_RATE_LIMIT=3
 
-5. Finally, dockerized the app. Creating docker containers for api backend and bullmq worker.
+#https://app.pinecone.io/organizations/******/projects/******/keys
+PINECONE_API_KEY=e1******-56**-43**-8f**-f**7**3**2**
+#https://platform.openai.com/api
+OPENAI_API_KEY=sk-p******j-f******og******Nr0P******FJt******JiBl******EvExEK
+```
+#### `src`
 
-## 🔗 Basic Approach 
+1. DATABASE_URL - [**CockroachDB**](https://www.cockroachlabs.com/) / [**Neon**](https://neon.tech/) / [**Supabase**](https://supabase.com/) / [**Tembo**](https://tembo.io/) / [**Crunchy Bridge**](https://www.crunchybridge.com/) / [**EdgeDB**](https://www.edgedb.com/)
+2. s3
+    - AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY - https://us-east-1.console.aws.amazon.com/iam/home#/security_credentials
+    - AWS_S3_REGION,AWS_S3_BUCKET_NAME - https://ap-south-1.console.aws.amazon.com/s3/home?region=ap-south-1
+3. PINECONE - https://app.pinecone.io/organizations -> API Keys
+4. OPENAI_API_KEY -https://platform.openai.com/api
+### ⇉⟭`Client`
+> Make `.env.local` - `client/.env.local`
+```dotenv
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_******reWx******M******su******b3******uZG******A
+CLERK_SECRET_KEY=sk_test_SI******B******Kw******Qgdx7V******9aL
 
-- Frameworks : NestJs (Scalable that's why) , Next.js 
+NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in
+NEXT_PUBLIC_CLERK_SIGN_UP_URL=/sign-up
+NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL=/
+NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=/
+NEXT_PUBLIC_CLERK_AFTER_SIGN_OUT_URL=/
+```
+#### `src`
+- https://clerk.com
 
-- Architecture: Let's follow microservice architecture.
 
-1. **Frontend**:
-    - Form for users to input project details (Title, Description) and upload a PDF file.
-    - Upon submission, send a request to the backend API with the project details and the uploaded PDF file.
-    - Display a list of all projects with their status ('creating', 'failed', 'created').
-    - When a user clicks on a project, show a chat interface similar to ChatGPT.
-
-2. **Backend API**:
-    - Set up a REST API endpoint to receive project creation requests from the frontend.
-    - Store the project details (Title, Description) in a PostgreSQL database.
-    - Upload the PDF file to a cloud storage service (e.g., AWS S3).
-    - Add a job to the BullMQ queue for processing the PDF file and generating vector embeddings.
-
-3. **BullMQ Worker**:
-    - Set up a BullMQ worker to process jobs from the queue.
-    - When a job is received, fetch the PDF file from the cloud storage service.
-    - Process the PDF file to generate vector embeddings using a library like `pdf-parse` or `pdf-lib`.
-    - Store the generated vector embeddings in the PostgreSQL database, associated with the corresponding project.
-    - Update the project status in the database ('creating', 'failed', 'created').
-
-4. **Chat Interface**:
-    - In the frontend, when a user opens a project, fetch the project details and vector embeddings from the backend API.
-    - Implement a chat interface similar to ChatGPT, where users can ask questions.
-    - When a user asks a question, send a request to the backend API with the question and project details.
-    - In the backend API, use an LLM API (e.g., OpenAI, Cohere, or Anthropic) to generate a relevant answer based on the question and the vector embeddings stored for that project.
-    - Return the generated answer to the frontend and display it in the chat interface.
-
-5. **Dockerization**:
-    - Create a Dockerfile for the backend API and another for the BullMQ worker.
-    - Build Docker images for the backend API and BullMQ worker.
-    - Create a Docker Compose file to define and run the containers for the backend API, BullMQ worker, and PostgreSQL database.
-
-## 🔗 Quick Notes - What I need to research for this one
-
-- `Edge Runtime` - A system that deploys our application code onto Content Delivery Networks (CDNs) around the world. CDNs are small machines distributed across different geographic regions. In a traditional setup, our server is hosted in one central location. Users far away from that location experience slower response times due to the distance their requests have to travel. With the Edge Runtime, our code is replicated and deployed on CDNs worldwide. When a user makes a request, it's served by the nearest CDN, providing lightning-fast response times, no matter where the user is located. The trade-off is that the Edge Runtime has limitations on package size and available APIs compared to a traditional server environment. We can't use all Node.js APIs and npm packages, but if our application can work with the supported APIs, we can achieve superior user experience with minimal latency globally.
-  
-- `Retrieval Augmented Generation` - Retrieval augmented generation (RAG) is a natural language processing (NLP) technique that combines the strengths of both retrieval- and generative-based artificial intelligence (AI) models.
-
-## 🔗 Stat
+## 🔗 Helper Notes
 ```md
 npx prisma studio
 
@@ -89,3 +88,5 @@ npx prisma migrate dev --name init
   }
 ]
 ```
+
+## 🔗 How To Run

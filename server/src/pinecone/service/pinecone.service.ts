@@ -8,9 +8,8 @@ import {
   RecursiveCharacterTextSplitter,
 } from '@pinecone-database/doc-splitter';
 import { UploadService } from '../../upload';
-
 import { OpenaiService } from '../../openai';
-import { truncateStringByBytes } from '../utils';
+import { convertToAscii, truncateStringByBytes } from '../utils';
 
 type PDFPage = {
   pageContent: string;
@@ -45,13 +44,17 @@ export class PineconeService {
     // 2. split and segment the pdf
     const documents = await Promise.all(pages.map(this.prepareDocument));
 
-    // 3. vectorised and embed individual documents
+    // 3. vectorised and embed individual documents -
+    //transforming individual documents from a text format into a numerical representation
     const vectors = await Promise.all(documents.flat().map(this.embedDocument));
-    // // 3. vectorised and embed individual documents -
-    // //transforming individual documents from a text format into a numerical representation
-    // const vectors = await Promise.all(documents.flat().map(this.embedDocument));
-    //
-    return vectors;
+
+    // 4. Upload vectorized documents to Pinecone
+    const pineconeIndex = this.pineconeClient.index('pdf-chat');
+    //Need to convert fileKey to ascii to avoid errors in Pinecone
+    const namespace = pineconeIndex.namespace(convertToAscii(fileKey));
+    await namespace.upsert(vectors);
+
+    return documents[0];
   }
 
   /**3. Vectorised and embed individual documents
