@@ -1,31 +1,33 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { OpenAIApi, Configuration } from 'openai-edge';
-import { ConfigService } from '@nestjs/config';
+import OpenAI from 'openai';
 
+import { ChatCompletionMessageParam } from 'openai/resources';
+import { ChatCompletionMessageDto } from './dto';
 @Injectable()
 export class OpenaiService {
   private readonly logger = new Logger(OpenaiService.name);
-  private openai: OpenAIApi;
 
-  constructor(private configService: ConfigService) {
-    const config = new Configuration({
-      apiKey: this.configService.get<string>('OPENAI_API_KEY'),
+  constructor(private readonly openai: OpenAI) {}
+
+  async createChatCompletion(messages: ChatCompletionMessageDto[]) {
+    return this.openai.chat.completions.create({
+      messages: messages as ChatCompletionMessageParam[],
+      model: 'gpt-3.5-turbo',
     });
-    this.openai = new OpenAIApi(config);
   }
-
   async getEmbeddings(text: string): Promise<number[]> {
     try {
-      const response = await this.openai.createEmbedding({
-        model: 'text-embedding-3-small',
+      const response = await this.openai.embeddings.create({
+        model: 'text-embedding-ada-002',
         input: text.replace(/\n/g, ' '),
       });
-      const result = await response.json();
-      //it's gonna be a vector of size 1536
-      //this embedding is merely a vector of multi dimentional
-      return result.data[0].embedding as number[];
+
+      if (response.data && response.data.length > 0) {
+        return response.data[0].embedding;
+      } else {
+        return [];
+      }
     } catch (error) {
-      this.logger.error('Error getting embeddings:', error);
       throw error;
     }
   }

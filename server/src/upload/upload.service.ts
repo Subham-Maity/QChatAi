@@ -4,24 +4,39 @@ import {
   GetObjectCommand,
   PutObjectCommand,
   S3Client,
+  S3,
 } from '@aws-sdk/client-s3';
 import { ConfigService } from '@nestjs/config';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
-import { Readable, PassThrough } from 'stream';
 import * as fs from 'node:fs';
-import * as path from 'node:path';
 
 @Injectable()
 export class UploadService {
   private readonly s3Client: S3Client;
+  private readonly s3: S3;
   private readonly bucketName: string;
   private fileKeys: string[] = []; // Array to store file keys
 
   constructor(private readonly configService: ConfigService) {
     this.s3Client = new S3Client({
-      region: this.configService.getOrThrow('AWS_S3_REGION'),
+      region: this.configService.get<string>('AWS_S3_REGION'),
+      credentials: {
+        accessKeyId: this.configService.get<string>('AWS_ACCESS_KEY_ID'),
+        secretAccessKey: this.configService.get<string>(
+          'AWS_SECRET_ACCESS_KEY',
+        ),
+      },
     });
-    this.bucketName = this.configService.getOrThrow('AWS_S3_BUCKET_NAME');
+    this.s3 = new S3({
+      region: this.configService.get<string>('AWS_S3_REGION'),
+      credentials: {
+        accessKeyId: this.configService.get<string>('AWS_ACCESS_KEY_ID'),
+        secretAccessKey: this.configService.get<string>(
+          'AWS_SECRET_ACCESS_KEY',
+        ),
+      },
+    });
+    this.bucketName = this.configService.get<string>('AWS_S3_BUCKET_NAME');
   }
 
   async upload(fileName: string, file: Buffer): Promise<string> {
@@ -66,38 +81,31 @@ export class UploadService {
     return this.fileKeys;
   }
   async downloadFromS3(fileKey: string): Promise<string> {
-    const params = {
-      Bucket: this.bucketName,
-      Key: fileKey,
-    };
+    return new Promise(async (resolve, reject) => {
+      try {
+        const params = {
+          Bucket: this.bucketName,
+          Key: fileKey,
+        };
 
-    const obj = await this.s3Client.send(new GetObjectCommand(params));
-
-    if (obj.Body instanceof Readable) {
-      const fileStream = obj.Body;
-      const tempFilePath = path.join(
-        __dirname,
-        '..',
-        '..',
-        'temp-s3',
-        `pdf-${Date.now()}.pdf`,
-      );
-      const tempFilePassThrough = new PassThrough();
-
-      fileStream.pipe(tempFilePassThrough);
-
-      return new Promise<string>((resolve, reject) => {
-        const fileWriteStream = fs.createWriteStream(tempFilePath);
-        tempFilePassThrough.pipe(fileWriteStream);
-        fileWriteStream.on('finish', () => {
-          resolve(tempFilePath);
-        });
-        fileWriteStream.on('error', (err) => {
-          reject(err);
-        });
-      });
-    } else {
-      throw new Error('Invalid response body');
-    }
+        const obj = await this.s3.send(new GetObjectCommand(params));
+        const fileName = `../server/temp-s3/elliott${Date.now().toString()}.pdf`;
+        // eslint-disable-next-line @typescript-eslint/no-var-requires
+        if (obj.Body instanceof require('stream').Readable) {
+          const file = fs.createWriteStream(fileName);
+          file.on('open', () => {
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-expect-error
+            obj.Body?.pipe(file).on('finish', () => {
+              return resolve(fileName);
+            });
+          });
+        }
+      } catch (error) {
+        console.error(error);
+        reject(error);
+        return null;
+      }
+    });
   }
 }

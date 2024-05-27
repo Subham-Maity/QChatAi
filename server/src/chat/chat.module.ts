@@ -1,14 +1,16 @@
 import { Module } from '@nestjs/common';
 import { ChatService } from './chat.service';
 import { ChatController } from './chat.controller';
-import { PineconeService } from '../pinecone';
+import { PineconeModule, PineconeService } from '../pinecone';
 import { UploadService } from '../upload';
-import { OpenaiModule, OpenaiService } from '../openai';
+import OpenAI from 'openai';
+import { ConfigService } from '@nestjs/config';
+import { OpenaiModule } from '../openai';
 
 @Module({
-  imports: [OpenaiModule],
+  imports: [PineconeModule, OpenaiModule],
   exports: [ChatService],
   controllers: [ChatController],
-  providers: [ChatService, PineconeService, UploadService, OpenaiService],
+  providers: [ChatService, PineconeService, UploadService],
 })
 export class ChatModule {}
