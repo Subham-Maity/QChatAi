@@ -20,6 +20,7 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
+    "@clerk/clerk-sdk-node": "^4.13.14",
     "@aws-sdk/client-s3": "^3.583.0",
     "@aws-sdk/s3-request-presigner": "^3.583.0",
     "@langchain/community": "^0.2.3",

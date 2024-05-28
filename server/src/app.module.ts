@@ -7,6 +7,9 @@ import { ChatModule } from './chat';
 import { PineconeModule } from './pinecone';
 import { OpenaiModule } from './openai';
 import { PrismaModule } from './prisma/prisma.module';
+import { AuthModule } from './auth/auth.module';
+import { APP_GUARD } from '@nestjs/core';
+import { ClerkAuthGuard } from './auth/guard';
 
 @Module({
   imports: [
@@ -16,6 +19,13 @@ import { PrismaModule } from './prisma/prisma.module';
     PineconeModule,
     OpenaiModule,
     PrismaModule,
+    AuthModule,
+  ],
+  providers: [
+    {
+      provide: APP_GUARD,
+      useClass: ClerkAuthGuard,
+    },
   ],
 })
 export class AppModule implements NestModule {
