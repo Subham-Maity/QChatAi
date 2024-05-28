@@ -1,30 +1,18 @@
 "use client";
 import Link from "next/link";
 import React from "react";
-import { useQuery } from "react-query";
-import { getChat } from "@/components/chat/api/get-chat.api";
 import { MessageCircle, PlusCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/shadcn/button";
-import { usePathname } from "next/navigation";
+import { Chat } from "../types/chat.types";
 
-const ChatSideBar = ({ userId }: { userId: string }) => {
-  const pathname = usePathname();
-  const chatId = pathname.split("/").pop();
-  const enabled = !!userId && !!chatId;
-
-  const { data: currentChat, isLoading } = useQuery(
-    ["chat", userId, chatId],
-    () => getChat(userId, chatId),
-    {
-      enabled,
-    },
-  );
-
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
+const ChatSideBar = ({
+  currentChat,
+  chatId,
+}: {
+  currentChat: Chat;
+  chatId: string;
+}) => {
   return (
     <div className="w-full max-h-screen overflow-scroll soff p-4 text-gray-200 bg-gray-900 h-screen">
       <Link href="/">

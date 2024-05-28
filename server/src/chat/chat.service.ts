@@ -15,7 +15,7 @@ export class ChatService {
     return this.prisma.chat.create({
       data: {
         pdfName: createChatDto.fileName,
-        pdfUrl: createChatDto.fileKey,
+        pdfUrl: createChatDto.fileUrl,
         userId,
         fileKey: createChatDto.fileKey,
       },
