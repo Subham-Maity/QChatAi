@@ -1,4 +1,4 @@
-export interface Chat {
+export interface ChatI {
   id: number;
   pdfName: string;
   pdfUrl: string;

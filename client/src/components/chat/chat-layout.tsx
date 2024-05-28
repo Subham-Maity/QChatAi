@@ -1,10 +1,17 @@
 "use client";
 import React from "react";
-import ChatSideBar from "@/components/chat/sidenav/sidebar";
 import { usePathname } from "next/navigation";
 import { useQuery } from "react-query";
 import { getChat } from "@/components/chat/api/get-chat.api";
 import PDFViewer from "@/components/chat/view/pdf-view";
+import Chat from "@/components/chat/chat/chat";
+import {
+  ResizableHandle,
+  ResizablePanel,
+  ResizablePanelGroup,
+} from "@/components/ui/shadcn/resizable";
+import TopNav from "@/components/chat/nav/top-nav";
+import { Card } from "@/components/ui/shadcn/card";
 
 const ChatLayout = ({ userId }: { userId: string }) => {
   const pathname = usePathname();
@@ -23,15 +30,29 @@ const ChatLayout = ({ userId }: { userId: string }) => {
     return <div>Loading...</div>;
   }
   return (
-    <div className="flex max-h-screen overflow-scroll">
-      <div className="flex w-full max-h-screen overflow-scroll">
-        <div className="flex-[1] max-w-xs">
-          <ChatSideBar currentChat={currentChat} chatId={chatId ?? "0"} />
-        </div>
-        <div className="max-h-screen p-4 oveflow-scroll flex-[5]">
-          <PDFViewer pdf_url={currentChat.pdfUrl} />
-        </div>
-        <div className="flex-[3] border-l-4 border-l-slate-200"></div>
+    <div className="flex flex-col h-screen">
+      <TopNav currentChat={currentChat} chatId={chatId ?? "0"} />
+      <div className="flex-grow overflow-auto">
+        <Card className="h-full rounded-lg border">
+          <ResizablePanelGroup
+            className="bg-stone-300 dark:bg-stone-900"
+            direction="horizontal"
+          >
+            <ResizablePanel defaultSize={25}>
+              <div className="relative flex h-full w-full ">
+                <div className="absolute bottom-0 left-0 right-0">
+                  <Chat chatId={chatId ?? "0"} />
+                </div>
+              </div>
+            </ResizablePanel>
+            <ResizableHandle withHandle />
+            <ResizablePanel defaultSize={75}>
+              <div className="flex h-full items-center justify-center p-6">
+                <PDFViewer pdf_url={currentChat?.pdfUrl} />
+              </div>
+            </ResizablePanel>
+          </ResizablePanelGroup>
+        </Card>
       </div>
     </div>
   );
