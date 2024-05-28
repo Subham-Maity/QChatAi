@@ -21,12 +21,12 @@ import { ClerkAuthGuard } from './auth/guard';
     PrismaModule,
     AuthModule,
   ],
-  providers: [
-    {
-      provide: APP_GUARD,
-      useClass: ClerkAuthGuard,
-    },
-  ],
+  // providers: [
+  //   {
+  //     provide: APP_GUARD,
+  //     useClass: ClerkAuthGuard,
+  //   },
+  // ],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {

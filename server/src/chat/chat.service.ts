@@ -21,4 +21,23 @@ export class ChatService {
       },
     });
   }
+  async getChat(userId: string, chatId: number) {
+    const chats = await this.prisma.chat.findMany({
+      where: { userId },
+    });
+
+    if (!chats || chats.length === 0) {
+      // Handle the case where no chats are found for the user
+      return null;
+    }
+
+    const currentChat = chats.find((chat) => chat.id === chatId);
+
+    if (!currentChat) {
+      // Handle the case where the requested chat is not found
+      return null;
+    }
+
+    return currentChat;
+  }
 }

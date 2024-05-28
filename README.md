@@ -39,6 +39,9 @@ UPLOAD_RATE_LIMIT=3
 PINECONE_API_KEY=e1******-56**-43**-8f**-f**7**3**2**
 #https://platform.openai.com/api
 OPENAI_API_KEY=sk-p******j-f******og******Nr0P******FJt******JiBl******EvExEK
+
+#Cleark
+CLERK_SECRET_KEY=sk_t******rL5******BkF******7******2hF******aL
 ```
 #### `src`
 
@@ -48,6 +51,7 @@ OPENAI_API_KEY=sk-p******j-f******og******Nr0P******FJt******JiBl******EvExEK
     - AWS_S3_REGION,AWS_S3_BUCKET_NAME - https://ap-south-1.console.aws.amazon.com/s3/home?region=ap-south-1
 3. PINECONE - https://app.pinecone.io/organizations -> API Keys
 4. OPENAI_API_KEY -https://platform.openai.com/api
+5. Clerk - https://clerk.com
 ### ⇉⟭`Client`
 > Make `.env.local` - `client/.env.local`
 ```dotenv
