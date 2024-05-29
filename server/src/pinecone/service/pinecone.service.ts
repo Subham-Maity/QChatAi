@@ -9,7 +9,11 @@ import {
 } from '@pinecone-database/doc-splitter';
 import { UploadService } from '../../upload';
 import { OpenaiService } from '../../openai';
-import { convertToAscii, truncateStringByBytes } from '../utils';
+import {
+  convertToAscii,
+  pinecone_client_index_name,
+  truncateStringByBytes,
+} from '../../common';
 
 type PDFPage = {
   pageContent: string;
@@ -49,7 +53,7 @@ export class PineconeService {
     const vectors = await Promise.all(documents.flat().map(this.embedDocument));
 
     // 4. Upload vectorized documents to Pinecone
-    const pineconeIndex = this.pineconeClient.index('pdf-chat');
+    const pineconeIndex = this.pineconeClient.index(pinecone_client_index_name);
     //Need to convert fileKey to ascii to avoid errors in Pinecone
     const namespace = pineconeIndex.namespace(convertToAscii(fileKey));
     await namespace.upsert(vectors);

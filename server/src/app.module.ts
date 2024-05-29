@@ -10,6 +10,7 @@ import { PrismaModule } from './prisma/prisma.module';
 import { AuthModule } from './auth/auth.module';
 import { APP_GUARD } from '@nestjs/core';
 import { ClerkAuthGuard } from './auth/guard';
+import { ContextModule } from './context/context.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { ClerkAuthGuard } from './auth/guard';
     OpenaiModule,
     PrismaModule,
     AuthModule,
+    ContextModule,
   ],
   // providers: [
   //   {

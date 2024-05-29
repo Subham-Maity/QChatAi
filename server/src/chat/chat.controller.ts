@@ -8,7 +8,6 @@ export class ChatController {
 
   @Post('create')
   async createChat(@Body() createChatDto: CreateChatDto) {
-    // Assuming you have the authenticated userId available in the request object
     const userId = createChatDto.userId;
 
     if (!userId) {

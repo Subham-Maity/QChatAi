@@ -7,6 +7,9 @@ import { Textarea } from "@/components/ui/shadcn/textarea";
 const Chat = ({ chatId }: { chatId: string }) => {
   const { input, handleInputChange, handleSubmit, messages } = useChat({
     api: "/api/chat-with-user",
+    body: {
+      chatId,
+    },
   });
   return (
     <div>

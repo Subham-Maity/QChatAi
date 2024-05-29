@@ -13,7 +13,7 @@ model Chat {
   pdfUrl    String
   createdAt DateTime  @default(now())
   userId    String    @db.VarChar(256)
-  fileKey   String // this is for s3
+  fileKey   String
   messages  Message[]
 
   @@map("chats")
