@@ -14,7 +14,7 @@ import {
   pinecone_client_index_name,
   truncateStringByBytes,
 } from '../../common';
-
+import { unlink } from 'node:fs/promises';
 type PDFPage = {
   pageContent: string;
   metadata: {
@@ -37,28 +37,39 @@ export class PineconeService {
     });
   }
   async loadS3IntoPinecone(fileKey: string) {
-    // 1. Extract txt form the PDF
-    const fileStream: any = await this.uploadService.downloadFromS3(fileKey);
-    if (!fileStream) {
-      throw new Error('could not download from s3');
+    // 1. Extract text from the PDF
+    const filePath: string = await this.uploadService.downloadFromS3(fileKey);
+    if (!filePath) {
+      throw new Error('Could not download from S3');
     }
-    const pdf_loader = new PDFLoader(fileStream);
-    const pages: PDFPage[] = (await pdf_loader.load()) as PDFPage[];
 
-    // 2. split and segment the pdf
-    const documents = await Promise.all(pages.map(this.prepareDocument));
+    try {
+      const pdf_loader = new PDFLoader(filePath);
+      const pages: PDFPage[] = (await pdf_loader.load()) as PDFPage[];
 
-    // 3. vectorised and embed individual documents -
-    //transforming individual documents from a text format into a numerical representation
-    const vectors = await Promise.all(documents.flat().map(this.embedDocument));
+      // 2. Split and segment the PDF
+      const documents = await Promise.all(pages.map(this.prepareDocument));
 
-    // 4. Upload vectorized documents to Pinecone
-    const pineconeIndex = this.pineconeClient.index(pinecone_client_index_name);
-    //Need to convert fileKey to ascii to avoid errors in Pinecone
-    const namespace = pineconeIndex.namespace(convertToAscii(fileKey));
-    await namespace.upsert(vectors);
+      // 3. Vectorize and embed individual documents
+      const vectors = await Promise.all(
+        documents.flat().map(this.embedDocument),
+      );
 
-    return documents[0];
+      // 4. Upload vectorized documents to Pinecone
+      const pineconeIndex = this.pineconeClient.index(
+        pinecone_client_index_name,
+      );
+      // Need to convert fileKey to ASCII to avoid errors in Pinecone
+      const namespace = pineconeIndex.namespace(convertToAscii(fileKey));
+      await namespace.upsert(vectors);
+
+      return documents[0];
+    } finally {
+      // Ensure the temporary file is deleted after processing
+      await unlink(filePath).catch((err) =>
+        console.error('Failed to delete temp file:', err),
+      );
+    }
   }
 
   /**3. Vectorised and embed individual documents

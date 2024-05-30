@@ -3,7 +3,6 @@ export interface ChatI {
   description: string;
   id: number;
   pdfName: string;
-  pdfUrl: string;
   createdAt: string;
   userId: string;
   fileKey: string;

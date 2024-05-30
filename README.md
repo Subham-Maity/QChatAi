@@ -18,7 +18,8 @@
       }
     ]
    ```
-
+3. Note that all processing occurs within BullMQ workers, making it highly scalable.
+4. We leverage Redis for data caching. You can either use this locally or connect to the production URL.
 
 ## 🔗 Environment Setup
 ### ⇉⟭`Server`

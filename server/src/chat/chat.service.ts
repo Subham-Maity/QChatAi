@@ -18,7 +18,6 @@ export class ChatService {
         title: createChatDto.title,
         description: createChatDto.description,
         pdfName: createChatDto.fileName,
-        pdfUrl: createChatDto.fileUrl,
         userId,
         fileKey: createChatDto.fileKey,
       },

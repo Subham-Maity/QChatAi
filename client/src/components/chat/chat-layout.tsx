@@ -13,19 +13,21 @@ import {
 import TopNav from "@/components/chat/nav/top-nav";
 import { Card } from "@/components/ui/shadcn/card";
 import { getChats } from "@/components/chat/api/get-chats.api";
+import { getSignedUrl } from "@/components/start/api/get-file.api";
 
 const ChatLayout = ({ userId }: { userId: string }) => {
   const pathname = usePathname();
   const chatId = pathname.split("/").pop();
   const enabled = !!userId && !!chatId;
 
-  const { data: currentChat, isLoading } = useQuery(
+  const { data: currentChat, isLoading: isLoadingChat } = useQuery(
     ["chat", userId, chatId],
     () => getChat(userId, chatId),
     {
       enabled,
     },
   );
+
   const { data: chats, isLoading: isLoadingChats } = useQuery(
     ["chats", userId],
     () => getChats(userId),
@@ -34,7 +36,20 @@ const ChatLayout = ({ userId }: { userId: string }) => {
     },
   );
 
-  if (isLoading) {
+  const {
+    data: signedUrl,
+    isLoading: isLoadingSignedUrl,
+    isFetching: isFetchingSignedUrl,
+  } = useQuery(
+    ["signedUrl", currentChat?.fileKey],
+    () => getSignedUrl(currentChat?.fileKey),
+    {
+      enabled: !!currentChat?.fileKey,
+    },
+  );
+  const isLoadingPdf = isLoadingSignedUrl || isFetchingSignedUrl;
+
+  if (isLoadingChat || isLoadingChats || isLoadingPdf) {
     return <div>Loading...</div>;
   }
   return (
@@ -56,7 +71,13 @@ const ChatLayout = ({ userId }: { userId: string }) => {
             <ResizableHandle withHandle />
             <ResizablePanel defaultSize={75}>
               <div className="flex h-full items-center justify-center p-6">
-                <PDFViewer pdf_url={currentChat?.pdfUrl} />
+                {signedUrl ? (
+                  <PDFViewer pdf_url={signedUrl} />
+                ) : isLoadingPdf ? (
+                  <div>Loading PDF...</div>
+                ) : (
+                  <div>No PDF available</div>
+                )}
               </div>
             </ResizablePanel>
           </ResizablePanelGroup>

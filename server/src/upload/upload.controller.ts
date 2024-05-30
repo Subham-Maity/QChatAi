@@ -38,7 +38,7 @@ export class UploadController {
     return { fileUrl, fileKey, fileName: file.originalname };
   }
 
-  @Get('signed-url')
+  @Post('signed-url')
   async getSignedUrl(@Body('fileKey') fileKey: string) {
     const fileUrl = await this.uploadService.getS3Url(fileKey);
     return { fileUrl };

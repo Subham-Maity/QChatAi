@@ -9,6 +9,7 @@ import {
 import { ConfigService } from '@nestjs/config';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 import * as fs from 'node:fs';
+import { Readable } from 'stream';
 
 @Injectable()
 export class UploadService {
@@ -90,21 +91,23 @@ export class UploadService {
 
         const obj = await this.s3.send(new GetObjectCommand(params));
         const fileName = `../server/temp-s3/elliott${Date.now().toString()}.pdf`;
-        // eslint-disable-next-line @typescript-eslint/no-var-requires
-        if (obj.Body instanceof require('stream').Readable) {
+
+        if (obj.Body instanceof Readable) {
           const file = fs.createWriteStream(fileName);
           file.on('open', () => {
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-expect-error
-            obj.Body?.pipe(file).on('finish', () => {
-              return resolve(fileName);
+            (obj.Body as Readable).pipe(file).on('finish', () => {
+              resolve(fileName);
             });
           });
+          file.on('error', (error) => {
+            reject(error);
+          });
+        } else {
+          reject(new Error('Object body is not a readable stream'));
         }
       } catch (error) {
         console.error(error);
         reject(error);
-        return null;
       }
     });
   }

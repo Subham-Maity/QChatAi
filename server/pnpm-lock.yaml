@@ -16,7 +16,7 @@ dependencies:
     version: 4.13.18(react@18.3.1)
   '@langchain/community':
     specifier: ^0.2.3
-    version: 0.2.3(@aws-sdk/client-s3@3.583.0)(@neondatabase/serverless@0.9.3)(@pinecone-database/pinecone@2.2.1)(openai@4.47.1)(pdf-parse@1.1.1)
+    version: 0.2.3(@aws-sdk/client-s3@3.583.0)(@neondatabase/serverless@0.9.3)(@pinecone-database/pinecone@2.2.1)(axios@1.7.2)(openai@4.47.1)(pdf-parse@1.1.1)
   '@neondatabase/serverless':
     specifier: ^0.9.3
     version: 0.9.3
@@ -56,6 +56,9 @@ dependencies:
   aws-sdk:
     specifier: ^2.1627.0
     version: 2.1627.0
+  axios:
+    specifier: ^1.7.2
+    version: 1.7.2
   bull:
     specifier: ^4.12.9
     version: 4.12.9
@@ -70,7 +73,7 @@ dependencies:
     version: 7.1.0
   langchain:
     specifier: ^0.2.2
-    version: 0.2.2(@aws-sdk/client-s3@3.583.0)(@pinecone-database/pinecone@2.2.1)(openai@4.47.1)(pdf-parse@1.1.1)
+    version: 0.2.2(@aws-sdk/client-s3@3.583.0)(@pinecone-database/pinecone@2.2.1)(axios@1.7.2)(openai@4.47.1)(pdf-parse@1.1.1)
   md5:
     specifier: ^2.3.0
     version: 2.3.0
@@ -1637,7 +1640,7 @@ packages:
       '@jridgewell/sourcemap-codec': 1.4.15
     dev: true
 
-  /@langchain/community@0.2.3(@aws-sdk/client-s3@3.583.0)(@neondatabase/serverless@0.9.3)(@pinecone-database/pinecone@2.2.1)(openai@4.47.1)(pdf-parse@1.1.1):
+  /@langchain/community@0.2.3(@aws-sdk/client-s3@3.583.0)(@neondatabase/serverless@0.9.3)(@pinecone-database/pinecone@2.2.1)(axios@1.7.2)(openai@4.47.1)(pdf-parse@1.1.1):
     resolution: {integrity: sha512-8ynw+ck4mfd7v4oYV1MP9rau2dLfdubTSN3e/1AhrKstICejOT2iYv3+Y4J9H/niwWBd5VqUmJUhTmYUZK3WBg==}
     engines: {node: '>=18'}
     peerDependencies:
@@ -2009,7 +2012,7 @@ packages:
       expr-eval: 2.0.2
       flat: 5.0.2
       js-yaml: 4.1.0
-      langchain: 0.2.2(@aws-sdk/client-s3@3.583.0)(@pinecone-database/pinecone@2.2.1)(openai@4.47.1)(pdf-parse@1.1.1)
+      langchain: 0.2.2(@aws-sdk/client-s3@3.583.0)(@pinecone-database/pinecone@2.2.1)(axios@1.7.2)(openai@4.47.1)(pdf-parse@1.1.1)
       langsmith: 0.1.28(@langchain/core@0.2.1)(langchain@0.2.2)(openai@4.47.1)
       pdf-parse: 1.1.1
       uuid: 9.0.1
@@ -3831,6 +3834,16 @@ packages:
       xml2js: 0.6.2
     dev: false
 
+  /axios@1.7.2:
+    resolution: {integrity: sha512-2A8QhOMrbomlDuiLeK9XibIBzuHeRcqqNOHp0Cyp5EoJ1IFDh+XZH3A6BkXtv0K4gFGCI0Y4BM7B1wOEi0Rmgw==}
+    dependencies:
+      follow-redirects: 1.15.6
+      form-data: 4.0.0
+      proxy-from-env: 1.1.0
+    transitivePeerDependencies:
+      - debug
+    dev: false
+
   /axobject-query@4.0.0:
     resolution: {integrity: sha512-+60uv1hiVFhHZeO+Lz0RYzsVHy5Wr1ayX0mwda9KPDVLNJgZ1T9Ny7VmFbLDzxsH0D87I86vgj3gFrjTJUYznw==}
     dependencies:
@@ -5046,6 +5059,16 @@ packages:
     resolution: {integrity: sha512-X8cqMLLie7KsNUDSdzeN8FYK9rEt4Dt67OsG/DNGnYTSDBG4uFAJFBnUeiV+zCVAvwFy56IjM9sH51jVaEhNxw==}
     dev: true
 
+  /follow-redirects@1.15.6:
+    resolution: {integrity: sha512-wWN62YITEaOpSK584EZXJafH1AGpO8RVgElfkuXbTOrPX4fIfOyEpW/CsiNd8JdYrAoOvafRTOEnvsO++qCqFA==}
+    engines: {node: '>=4.0'}
+    peerDependencies:
+      debug: '*'
+    peerDependenciesMeta:
+      debug:
+        optional: true
+    dev: false
+
   /for-each@0.3.3:
     resolution: {integrity: sha512-jqYfLp7mo9vIyQf8ykW2v7A+2N4QjeCeI5+Dz9XraiO1ign81wjiH7Fb9vSOWvQfNtmSa4H2RoQTrrXivdUZmw==}
     dependencies:
@@ -6198,7 +6221,7 @@ packages:
     engines: {node: '>=6'}
     dev: true
 
-  /langchain@0.2.2(@aws-sdk/client-s3@3.583.0)(@pinecone-database/pinecone@2.2.1)(openai@4.47.1)(pdf-parse@1.1.1):
+  /langchain@0.2.2(@aws-sdk/client-s3@3.583.0)(@pinecone-database/pinecone@2.2.1)(axios@1.7.2)(openai@4.47.1)(pdf-parse@1.1.1):
     resolution: {integrity: sha512-4tt2QuwW8AXdIL8CRkQeGOCoYYH3QbLHfQ09yD0iWLV1rwUYJ8mIYFAz/+u6CB8YNEyR/HI105s4xrxFQbWa9g==}
     engines: {node: '>=18'}
     peerDependencies:
@@ -6362,6 +6385,7 @@ packages:
       '@langchain/openai': 0.0.33(langchain@0.2.2)
       '@langchain/textsplitters': 0.0.2(langchain@0.2.2)(openai@4.47.1)
       '@pinecone-database/pinecone': 2.2.1
+      axios: 1.7.2
       binary-extensions: 2.3.0
       js-tiktoken: 1.0.12
       js-yaml: 4.1.0
@@ -6402,7 +6426,7 @@ packages:
       '@langchain/core': 0.2.1(langchain@0.2.2)(openai@4.47.1)
       '@types/uuid': 9.0.8
       commander: 10.0.1
-      langchain: 0.2.2(@aws-sdk/client-s3@3.583.0)(@pinecone-database/pinecone@2.2.1)(openai@4.47.1)(pdf-parse@1.1.1)
+      langchain: 0.2.2(@aws-sdk/client-s3@3.583.0)(@pinecone-database/pinecone@2.2.1)(axios@1.7.2)(openai@4.47.1)(pdf-parse@1.1.1)
       openai: 4.47.1
       p-queue: 6.6.2
       p-retry: 4.6.2
@@ -7236,6 +7260,10 @@ packages:
     dependencies:
       forwarded: 0.2.0
       ipaddr.js: 1.9.1
+
+  /proxy-from-env@1.1.0:
+    resolution: {integrity: sha512-D+zkORCbA9f1tdWRK0RaCR3GPv50cMxcrz4X8k5LTSUD1Dkw47mKJEZQNunItRTkWwgtaUSo1RVFRIG9ZXiFYg==}
+    dev: false
 
   /punycode@1.3.2:
     resolution: {integrity: sha512-RofWgt/7fL5wP1Y7fxE7/EmTLzQVnB0ycyibJ0OOHIlJqTNzglYFxVwETOcIoJqJmpDXJ9xImDv+Fq34F/d4Dw==}

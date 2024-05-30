@@ -10,9 +10,6 @@ export class CreateChatDto {
   userId: string;
 
   @IsString()
-  fileUrl: string;
-
-  @IsString()
   fileKey: string;
 
   @IsString()
