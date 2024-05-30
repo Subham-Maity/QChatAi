@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/shadcn/resizable";
 import TopNav from "@/components/chat/nav/top-nav";
 import { Card } from "@/components/ui/shadcn/card";
+import { getChats } from "@/components/chat/api/get-chats.api";
 
 const ChatLayout = ({ userId }: { userId: string }) => {
   const pathname = usePathname();
@@ -25,13 +26,20 @@ const ChatLayout = ({ userId }: { userId: string }) => {
       enabled,
     },
   );
+  const { data: chats, isLoading: isLoadingChats } = useQuery(
+    ["chats", userId],
+    () => getChats(userId),
+    {
+      enabled: !!userId,
+    },
+  );
 
   if (isLoading) {
     return <div>Loading...</div>;
   }
   return (
     <div className="flex flex-col h-screen">
-      <TopNav currentChat={currentChat} chatId={chatId ?? "0"} />
+      <TopNav chatId={chatId ?? "0"} chats={chats} />
       <div className="flex-grow overflow-auto">
         <Card className="h-full rounded-lg border">
           <ResizablePanelGroup

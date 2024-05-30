@@ -1,12 +1,12 @@
 "use client";
 import React, { useState } from "react";
-import { Mail, ScanEye, Upload, UploadIcon } from "lucide-react";
+import { ScanEye, Upload, UploadIcon } from "lucide-react";
 import { useDropzone } from "react-dropzone";
 import { toast } from "sonner";
 import { useMutation } from "react-query";
 import { useRouter } from "next/navigation";
-import { createChat } from "@/components/upload/api/create-chat.api";
-import { uploadFile } from "@/components/upload/api/upload-file.api";
+import { createChat } from "@/components/start/api/create-chat.api";
+import { uploadFile } from "@/components/start/api/upload-file.api";
 import { Document, Page, pdfjs } from "react-pdf";
 import {
   Dialog,
@@ -14,7 +14,9 @@ import {
   DialogTrigger,
 } from "@/components/ui/shadcn/dialog";
 import { Button } from "@/components/ui/shadcn/button";
-import { FileUploadProps } from "@/components/upload/types/file-upload.types";
+import { FileUploadProps } from "@/components/start/types/file-upload.types";
+import { useAppSelector } from "@/store/redux/useSelector";
+import { RootState } from "@/store/redux/store";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
 
@@ -22,7 +24,10 @@ const FileUpload: React.FC<FileUploadProps> = ({ userId }) => {
   const router = useRouter();
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [filePreview, setFilePreview] = useState<string | null>(null);
-
+  // Get the title and description from Redux state
+  const { title, description } = useAppSelector(
+    (state: RootState) => state.chat,
+  );
   const { mutate } = useMutation({
     mutationFn: async (file: File) => {
       try {
@@ -34,9 +39,13 @@ const FileUpload: React.FC<FileUploadProps> = ({ userId }) => {
     },
     onSuccess: async (uploadResponse) => {
       try {
-        const chatRequestData = { ...uploadResponse, userId };
+        const chatRequestData = {
+          ...uploadResponse,
+          userId,
+          title,
+          description,
+        };
         const chatResponse = await createChat(chatRequestData);
-        console.log("Chat created:", JSON.stringify(chatResponse));
         toast.success("Chat created!");
         router.push(`/chat/${chatResponse.id}`);
       } catch (error) {
@@ -67,21 +76,21 @@ const FileUpload: React.FC<FileUploadProps> = ({ userId }) => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center w-full max-w-md mx-auto my-8">
+    <div className="flex flex-col items-center justify-center w-full max-w-md">
       <div
         {...getRootProps({
           className:
-            "w-full h-32 bg-gray-100 border-2 border-dashed border-gray-300 rounded-lg flex flex-col items-center justify-center space-y-2 cursor-pointer transition-colors hover:bg-gray-200 dark:bg-gray-800 dark:border-gray-600 dark:hover:bg-gray-700",
+            "w-full h-32 bg-stone-100 border-2 p-4 border-dashed border-stone-300 rounded-lg flex flex-col items-center justify-center space-y-2 cursor-pointer transition-colors hover:bg-stone-200 dark:bg-stone-800 dark:border-stone-600 dark:hover:bg-stone-700",
         })}
       >
         <input {...getInputProps()} />
-        <UploadIcon className="w-8 h-8 text-gray-500 dark:text-gray-400" />
-        <p className="text-gray-500 dark:text-gray-400">
+        <UploadIcon className="w-8 h-8 text-stone-500 dark:text-stone-400" />
+        <p className="text-stone-500 dark:text-stone-400">
           Drag and drop files here or click to upload
         </p>
       </div>
       {selectedFile && (
-        <div className="w-full bg-white border rounded-lg overflow-hidden shadow-sm dark:bg-gray-950 dark:border-gray-800 mt-2">
+        <div className="w-full bg-stone-300 border pl-4 items-center rounded-lg overflow-hidden shadow-sm dark:bg-stone-600 dark:border-stone-800 mt-2">
           <Dialog>
             <DialogTrigger>
               <Button variant="destructive" className="mt-2">
@@ -102,10 +111,10 @@ const FileUpload: React.FC<FileUploadProps> = ({ userId }) => {
             </DialogContent>
           </Dialog>
 
-          <div className="p-4 space-y-2">
+          <div className="p-4 space-y-2 ">
             <p className="font-medium">{selectedFile.name}</p>
             <div className="flex items-center justify-between">
-              <p className="text-gray-500 dark:text-gray-400">
+              <p className="text-stone-500 dark:text-stone-400">
                 {(selectedFile.size / 1024 / 1024).toFixed(2)} MB
               </p>
               <Button

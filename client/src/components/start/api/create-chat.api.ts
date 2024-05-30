@@ -1,14 +1,8 @@
 import createAxiosInstance from "@/hook/axios/axios";
 import { backend_create_chat_path } from "@/links/backend-path-link.constant";
+import { CreateChatRequestData } from "@/components/start/types/file-upload.types";
 
 const axios = createAxiosInstance(0);
-
-interface CreateChatRequestData {
-  userId: string;
-  fileUrl: string;
-  fileKey: string;
-  fileName: string;
-}
 
 export const createChat = async (data: CreateChatRequestData) => {
   try {

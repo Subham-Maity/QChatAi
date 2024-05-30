@@ -10,11 +10,16 @@
   },
   "dependencies": {
     "@clerk/nextjs": "^5.1.2",
+    "@hookform/resolvers": "^3.4.2",
+    "@nextui-org/react": "^2.4.0",
+    "@nextui-org/tooltip": "^2.0.34",
     "@radix-ui/react-dialog": "^1.0.5",
     "@radix-ui/react-dropdown-menu": "^2.0.6",
+    "@radix-ui/react-label": "^2.0.2",
     "@radix-ui/react-slot": "^1.0.2",
     "@react-hook/resize-observer": "^2.0.1",
     "@react-pdf/renderer": "^3.4.4",
+    "@reduxjs/toolkit": "^2.2.5",
     "@tabler/icons-react": "^3.5.0",
     "ai": "^3.1.15",
     "axios": "^1.7.2",
@@ -29,12 +34,15 @@
     "react": "^18",
     "react-dom": "^18",
     "react-dropzone": "^14.2.3",
+    "react-hook-form": "^7.51.5",
     "react-pdf": "^8.0.2",
     "react-query": "^3.39.3",
+    "react-redux": "^9.1.2",
     "react-resizable-panels": "^2.0.19",
     "sonner": "^1.4.41",
     "tailwind-merge": "^2.3.0",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@types/node": "^20",

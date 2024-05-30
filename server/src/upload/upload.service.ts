@@ -53,7 +53,7 @@ export class UploadService {
       }),
     );
 
-    this.fileKeys.push(uniqueFileName); // Store the file key
+    this.fileKeys.push(uniqueFileName);
     return uniqueFileName;
   }
 

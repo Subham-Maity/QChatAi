@@ -8,13 +8,16 @@ datasource db {
 }
 
 model Chat {
-  id        Int       @id @default(autoincrement())
-  pdfName   String
-  pdfUrl    String
-  createdAt DateTime  @default(now())
-  userId    String    @db.VarChar(256)
-  fileKey   String
-  messages  Message[]
+  id          Int        @id @default(autoincrement())
+  title       String
+  description String
+  pdfName     String
+  pdfUrl      String
+  createdAt   DateTime   @default(now())
+  userId      String     @db.VarChar(256)
+  fileKey     String
+  status      ChatStatus @default(creating)
+  messages    Message[]
 
   @@map("chats")
 }
@@ -22,6 +25,12 @@ model Chat {
 enum UserSystemEnum {
   system
   user
+}
+
+enum ChatStatus {
+  creating
+  failed
+  created
 }
 
 model Message {

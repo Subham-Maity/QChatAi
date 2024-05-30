@@ -46,4 +46,9 @@ export class ChatController {
   async getChatMessages(@Body('chatId') chatId: string) {
     return this.chatService.getChatMessages(parseInt(chatId));
   }
+  @Get('chat/allChat/:userId') // Change the route definition
+  async getAllChats(@Param('userId') userId: string) {
+    const chats = await this.chatService.getAllChats(userId);
+    return chats;
+  }
 }

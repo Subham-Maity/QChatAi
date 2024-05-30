@@ -7,6 +7,8 @@ import ReactQueryProvider from "@/app/providers/react-query-provider";
 import { Toaster } from "sonner";
 import { ThemeProvider } from "@/app/providers/theme-provider";
 import AuthGuard from "@/protected/auth-guard";
+import { ReduxProvider } from "@/app/providers/redux-provider";
+import { NextUIProvider } from "@nextui-org/react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -25,14 +27,20 @@ export default function RootLayout({
       <ClerkProvider>
         <html lang="en">
           <Toaster position="top-right" />
-          <body className={inter.className}>
+          <body
+            className={`${inter.className} dark:bg-gradient-to-r dark:from-stone-800 dark:via-stone-900 dark:to-black bg-gradient-to-r from-stone-200 via-stone-300 to-white`}
+          >
             <ThemeProvider
               attribute="class"
               defaultTheme="system"
               enableSystem
               disableTransitionOnChange
             >
-              <AuthGuard>{children}</AuthGuard>
+              <AuthGuard>
+                <ReduxProvider>
+                  <NextUIProvider>{children}</NextUIProvider>
+                </ReduxProvider>
+              </AuthGuard>
             </ThemeProvider>
           </body>
         </html>
