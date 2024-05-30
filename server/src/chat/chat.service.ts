@@ -2,15 +2,19 @@ import { Injectable } from '@nestjs/common';
 import { CreateChatDto } from './dto';
 import { PineconeService } from '../pinecone';
 import { PrismaService } from '../prisma/prisma.service';
+import { BullService } from '../queue';
 
 @Injectable()
 export class ChatService {
   constructor(
     private readonly pineconeService: PineconeService,
     private readonly prisma: PrismaService,
+    private readonly bullService: BullService,
   ) {}
   async createChat(createChatDto: CreateChatDto, userId: string) {
-    await this.pineconeService.loadS3IntoPinecone(createChatDto.fileKey);
+    await this.bullService.addPineconeJob({
+      fileKey: createChatDto.fileKey,
+    });
     // Create a new chat record in the database
     return this.prisma.chat.create({
       data: {

@@ -11,7 +11,7 @@ import { AuthModule } from './auth/auth.module';
 import { APP_GUARD } from '@nestjs/core';
 import { ClerkAuthGuard } from './auth/guard';
 import { ContextModule } from './context/context.module';
-import { BullModule } from './queue/bull/bull.module';
+import { QueueModule } from './queue/bull/bull.module';
 
 @Module({
   imports: [
@@ -23,7 +23,7 @@ import { BullModule } from './queue/bull/bull.module';
     PrismaModule,
     AuthModule,
     ContextModule,
-    BullModule,
+    QueueModule,
   ],
   // providers: [
   //   {
