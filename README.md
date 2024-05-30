@@ -1,7 +1,15 @@
 # Chat with PDF - RAG
+## 🔗 Frameworks
+### ⇉⟭`Server`
+- [NestJs](https://nestjs.com/)(Express), [rxjs](https://rxjs.dev/), [prisma](https://www.prisma.io/), [openai](https://beta.openai.com/), [Redis](https://redis.io/), [BullMQ](https://docs.bullmq.io/), [Postgres](https://www.postgresql.org/), [Vector Embeddings](https://docs.pinecone.io/docs/vector-embeddings), [Pinecone](https://www.pinecone.io/), [Pgvector](https://github.com/pgvector/pgvector), [Docker](https://www.docker.com/)
 
+### ⇉⟭`Client`
+- [Next.js](https://nextjs.org/), [TailwindCSS](https://tailwindcss.com/), [React Query](https://tanstack.com/query/v3/), [Redux](https://redux.js.org/), [axios](https://axios-http.com/), [lucide-react](https://lucide.dev/), [sonner](https://sonner.emilkowal.ski/), [shadcn](https://ui.shadcn.com/)
 ## 🔗 keynote
-1. > All backend APIs are protected by your Clerk session token. Without this logic, we cannot access the backend, making it challenging to test with Postman. If you wish to test the backend API solely from Postman, you can temporarily remove or comment out the following line in `server/src/app.module.ts`
+1. `NestJS` - NestJS offers a solid MVC architecture and excellent scalability, provides built-in features like dependency injection and a modular architecture, making it ideal for production-grade enterprise applications. It supports microservices and ensures maintainability, unlike traditional Node.js setups, which can struggle with these aspects.
+> Under the hood, NestJS uses Express (Node.js) in a very optimal way, which isn't easily achievable with a traditional setup.
+
+2. All backend APIs are protected by your Clerk session token. Without this logic, we cannot access the backend, making it challenging to test with Postman. If you wish to test the backend API solely from Postman, you can temporarily remove or comment out the following line in `server/src/app.module.ts`
    ```ts
     providers: [
       {
@@ -10,12 +18,7 @@
       }
     ]
    ```
-## 🔗 Frameworks
-### ⇉⟭`Server`
-- [NestJs](https://nestjs.com/)(Express), [rxjs](https://rxjs.dev/), [prisma](https://www.prisma.io/), [openai](https://beta.openai.com/), [Redis](https://redis.io/), [BullMQ](https://docs.bullmq.io/), [Postgres](https://www.postgresql.org/), [Vector Embeddings](https://docs.pinecone.io/docs/vector-embeddings), [Pinecone](https://www.pinecone.io/), [Pgvector](https://github.com/pgvector/pgvector), [Docker](https://www.docker.com/)
 
-### ⇉⟭`Client`
-- [Next.js](https://nextjs.org/), [TailwindCSS](https://tailwindcss.com/), [React Query](https://tanstack.com/query/v3/), [Redux](https://redux.js.org/), [axios](https://axios-http.com/), [lucide-react](https://lucide.dev/), [sonner](https://sonner.emilkowal.ski/), [shadcn](https://ui.shadcn.com/)
 
 ## 🔗 Environment Setup
 ### ⇉⟭`Server`
