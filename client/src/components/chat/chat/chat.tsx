@@ -20,7 +20,7 @@ const Chat = ({ chatId }: { chatId: string }) => {
           <Textarea
             value={input}
             onChange={handleInputChange}
-            className="px-2 bg-stone-100 dark:bg-stone-700"
+            className="px-2 outline-none bg-stone-100 dark:bg-stone-700 focus-visible:ring-0"
             placeholder="Ask me anything about your PDF.."
           />
           <div className="text-center mb-4">

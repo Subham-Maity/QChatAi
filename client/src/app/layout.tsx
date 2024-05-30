@@ -6,6 +6,7 @@ import React from "react";
 import ReactQueryProvider from "@/app/providers/react-query-provider";
 import { Toaster } from "sonner";
 import { ThemeProvider } from "@/app/providers/theme-provider";
+import AuthGuard from "@/protected/auth-guard";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -31,7 +32,7 @@ export default function RootLayout({
               enableSystem
               disableTransitionOnChange
             >
-              {children}
+              <AuthGuard>{children}</AuthGuard>
             </ThemeProvider>
           </body>
         </html>
