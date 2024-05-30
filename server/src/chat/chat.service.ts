@@ -27,17 +27,48 @@ export class ChatService {
     });
 
     if (!chats || chats.length === 0) {
-      // Handle the case where no chats are found for the user
       return null;
     }
 
     const currentChat = chats.find((chat) => chat.id === chatId);
 
     if (!currentChat) {
-      // Handle the case where the requested chat is not found
       return null;
     }
 
     return currentChat;
+  }
+  async saveUserMessage(chatId: number, content: string) {
+    return this.prisma.message.create({
+      data: {
+        chatId,
+        content,
+        role: 'user',
+      },
+    });
+  }
+
+  async saveAIMessage(chatId: number, content: string) {
+    return this.prisma.message.create({
+      data: {
+        chatId,
+        content,
+        role: 'system',
+      },
+    });
+  }
+
+  async getChatByChatId(chatId: number) {
+    console.log(chatId + 'chatId');
+    const chat = await this.prisma.chat.findUnique({
+      where: { id: chatId },
+      include: { messages: true },
+    });
+
+    if (!chat) {
+      throw new Error('Chat not found');
+    }
+
+    return chat;
   }
 }

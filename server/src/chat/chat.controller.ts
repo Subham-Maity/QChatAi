@@ -13,7 +13,6 @@ export class ChatController {
     if (!userId) {
       throw new Error('You must be logged in to create a chat');
     }
-    // Call the service method to create the chat
     return await this.chatService.createChat(createChatDto, userId);
   }
   @Get(':userId/:chatId')
@@ -22,5 +21,25 @@ export class ChatController {
     @Param('chatId') chatId: string,
   ) {
     return this.chatService.getChat(userId, parseInt(chatId));
+  }
+  @Post('saveUserMessage')
+  async saveUserMessage(
+    @Body('chatId') chatId: number,
+    @Body('content') content: string,
+  ) {
+    return this.chatService.saveUserMessage(chatId, content);
+  }
+
+  @Post('saveAIMessage')
+  async saveAIMessage(
+    @Body('chatId') chatId: number,
+    @Body('content') content: string,
+  ) {
+    return this.chatService.saveAIMessage(chatId, content);
+  }
+
+  @Get(':chatId')
+  async getChatById(@Param('chatId') chatId: string) {
+    return this.chatService.getChatByChatId(parseInt(chatId));
   }
 }

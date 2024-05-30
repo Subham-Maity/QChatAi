@@ -1,6 +1,7 @@
 import { Configuration, OpenAIApi } from "openai-edge";
 import { OpenAIStream, StreamingTextResponse } from "ai";
 import createAxiosInstance from "@/hook/axios/axios";
+import { NextResponse } from "next/server";
 
 export const runtime = "edge";
 const axios = createAxiosInstance(0);
@@ -12,17 +13,24 @@ const openai = new OpenAIApi(config);
 export async function POST(req: Request) {
   try {
     const { messages, chatId } = await req.json();
+    // Call the NestJS backend to get the chat details
+    const chatResponse = await axios.get(`/chat/${chatId}`);
+    const chat = chatResponse.data;
 
-    //TODO: Need to implement in the backend for getting the fileKey by chatId
+    if (!chat) {
+      return NextResponse.json({ error: "chat not found" }, { status: 404 });
+    }
+
+    const fileKey = chat.fileKey;
+
+    console.log(fileKey + "fileKey");
+
     const lastMessage = messages[messages.length - 1];
     // Call the NestJS backend to get the context
-    const contextResponse = await axios.post(
-      `/context/get-context`,
-      {
-        query: lastMessage.content, //fileKey
-      },
-      { withCredentials: true },
-    );
+    const contextResponse = await axios.post(`/context/get-context`, {
+      query: lastMessage.content,
+      fileKey,
+    });
 
     const response = await openai.createChatCompletion({
       model: "gpt-3.5-turbo",
