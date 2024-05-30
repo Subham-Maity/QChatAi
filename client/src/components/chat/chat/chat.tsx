@@ -11,8 +11,17 @@ const Chat = ({ chatId }: { chatId: string }) => {
       chatId,
     },
   });
+  React.useEffect(() => {
+    const messageContainer = document.getElementById("message-container");
+    if (messageContainer) {
+      messageContainer.scrollTo({
+        top: messageContainer.scrollHeight,
+        behavior: "smooth",
+      });
+    }
+  }, [messages]);
   return (
-    <div>
+    <div id="message-container">
       <MessageList messages={messages} />
 
       <form onSubmit={handleSubmit}>

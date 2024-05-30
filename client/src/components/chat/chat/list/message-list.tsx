@@ -1,6 +1,5 @@
 import { cn } from "@/lib/utils";
 import { Message } from "ai/react";
-import { Loader2 } from "lucide-react";
 import React from "react";
 import { Card, CardContent } from "@/components/ui/shadcn/card";
 
@@ -13,7 +12,7 @@ const MessageList = ({ messages }: Props) => {
   return (
     <Card className="mx-6 mb-1 dark:bg-stone-700 bg-white">
       <CardContent className="px-2 py-1">
-        <div className="flex flex-col gap-2 mb-4 mt-4">
+        <div className="flex flex-col gap-2 mb-4 mt-4 overflow-auto max-h-96 px-4">
           {messages.map((message) => {
             return (
               <div
