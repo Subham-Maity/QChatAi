@@ -4,13 +4,28 @@ import MessageList from "@/components/chat/chat/list/message-list";
 import { HoverBorderGradient } from "@/components/ui/aceternity/hover-border-gradient";
 import { useChat } from "ai/react";
 import { Textarea } from "@/components/ui/shadcn/textarea";
+import { useQuery } from "react-query";
+import { Message } from "ai";
+import createAxiosInstance from "@/hook/axios/axios";
 const Chat = ({ chatId }: { chatId: string }) => {
+  const axios = createAxiosInstance(0);
+  const { data, isLoading } = useQuery({
+    queryKey: ["chat", chatId],
+    queryFn: async () => {
+      const response = await axios.post<Message[]>("/chat/getChat/", {
+        chatId,
+      });
+      return response.data;
+    },
+  });
   const { input, handleInputChange, handleSubmit, messages } = useChat({
     api: "/api/chat-with-user",
     body: {
       chatId,
     },
+    initialMessages: data || [],
   });
+
   React.useEffect(() => {
     const messageContainer = document.getElementById("message-container");
     if (messageContainer) {
@@ -22,7 +37,7 @@ const Chat = ({ chatId }: { chatId: string }) => {
   }, [messages]);
   return (
     <div id="message-container">
-      <MessageList messages={messages} />
+      <MessageList messages={messages} isLoading={isLoading} />
 
       <form onSubmit={handleSubmit}>
         <div className="grid  mx-6 gap-2">

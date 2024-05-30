@@ -71,4 +71,16 @@ export class ChatService {
 
     return chat;
   }
+  async getChatMessages(chatId: number) {
+    const chat = await this.prisma.chat.findUnique({
+      where: { id: chatId },
+      include: { messages: true },
+    });
+
+    if (!chat) {
+      throw new Error('Chat not found');
+    }
+
+    return chat.messages;
+  }
 }

@@ -54,8 +54,6 @@ export async function POST(req: Request) {
     // console.log(
     //   "API HIT ************* Chat Completion" + JSON.stringify(prompt),
     // );
-
-    // Dubbugging Purpose
     // console.log(context + "context-data");
 
     const response = await openai.createChatCompletion({
@@ -66,7 +64,22 @@ export async function POST(req: Request) {
       ],
       stream: true,
     });
-    const stream = OpenAIStream(response);
+    const stream = OpenAIStream(response, {
+      onStart: async () => {
+        // Call the NestJS backend to save the user message
+        await axios.post(`/chat/saveUserMessage`, {
+          chatId,
+          content: lastMessage.content,
+        });
+      },
+      onCompletion: async (completion) => {
+        // Call the NestJS backend to save the AI message
+        await axios.post(`/chat/saveAIMessage`, {
+          chatId,
+          content: completion,
+        });
+      },
+    });
     return new StreamingTextResponse(stream);
   } catch (error) {}
 }

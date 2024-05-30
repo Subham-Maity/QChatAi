@@ -2,12 +2,21 @@ import { cn } from "@/lib/utils";
 import { Message } from "ai/react";
 import React from "react";
 import { Card, CardContent } from "@/components/ui/shadcn/card";
+import { Loader2 } from "lucide-react";
 
 type Props = {
   messages: Message[];
+  isLoading: boolean;
 };
 
-const MessageList = ({ messages }: Props) => {
+const MessageList = ({ messages, isLoading }: Props) => {
+  if (isLoading) {
+    return (
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+        <Loader2 className="w-6 h-6 animate-spin" />
+      </div>
+    );
+  }
   if (!messages) return <></>;
   return (
     <Card className="mx-6 mb-1 dark:bg-stone-700 bg-white">

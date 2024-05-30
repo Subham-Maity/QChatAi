@@ -24,22 +24,26 @@ export class ChatController {
   }
   @Post('saveUserMessage')
   async saveUserMessage(
-    @Body('chatId') chatId: number,
+    @Body('chatId') chatId: string,
     @Body('content') content: string,
   ) {
-    return this.chatService.saveUserMessage(chatId, content);
+    return this.chatService.saveUserMessage(parseInt(chatId), content);
   }
 
   @Post('saveAIMessage')
   async saveAIMessage(
-    @Body('chatId') chatId: number,
+    @Body('chatId') chatId: string,
     @Body('content') content: string,
   ) {
-    return this.chatService.saveAIMessage(chatId, content);
+    return this.chatService.saveAIMessage(parseInt(chatId), content);
   }
 
   @Get(':chatId')
   async getChatById(@Param('chatId') chatId: string) {
     return this.chatService.getChatByChatId(parseInt(chatId));
+  }
+  @Post('getChat')
+  async getChatMessages(@Body('chatId') chatId: string) {
+    return this.chatService.getChatMessages(parseInt(chatId));
   }
 }
