@@ -1,5 +1,7 @@
-import ProjectLayout from "@/components/start/project-layout";
+import React from "react";
 
-export default function Home() {
-  return <ProjectLayout />;
-}
+const Page = () => {
+  return <div></div>;
+};
+
+export default Page;

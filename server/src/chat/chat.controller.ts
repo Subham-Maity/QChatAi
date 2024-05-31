@@ -46,6 +46,10 @@ export class ChatController {
   async getChatMessages(@Body('chatId') chatId: string) {
     return this.chatService.getChatMessages(parseInt(chatId));
   }
+  @Get('chat/latest/:userId')
+  async getLatestChat(@Param('userId') userId: string) {
+    return this.chatService.getLatestChat(userId);
+  }
   @Get('chat/allChat/:userId')
   async getAllChats(@Param('userId') userId: string) {
     return this.chatService.getAllChats(userId);

@@ -35,11 +35,6 @@ const ChatSideBar = ({ chats }: ChatSideBar) => {
             </button>
           </HoverBorderGradient>
         </Link>
-        <Link href="https://github.com/Subham-Maity/QChatAi">
-          <Tooltip content={"Get started"} placement={"right"}>
-            <Github className="mr-2 w-5 h-5" />
-          </Tooltip>
-        </Link>
       </div>
 
       <div className="text-center mb-4"></div>

@@ -17,7 +17,7 @@ const DashLayout = ({ userId }: { userId: string }) => {
   );
   return (
     <div className="flex flex-col h-screen gap-5">
-      <TopNav chats={chats} />
+      <TopNav chats={chats} userId={userId} />
       <Card className="container mx-auto px-0 py-0 default-bg">
         {isLoadingChats ? (
           <DataTableSkeleton

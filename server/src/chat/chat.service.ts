@@ -76,6 +76,43 @@ export class ChatService {
 
     return chat;
   }
+  async getLatestChat(userId: string) {
+    const cacheKey = `${chats_key_prefix_for_redis}:${userId}:latest`;
+
+    try {
+      const cachedChat = await this.redisService.get(cacheKey);
+      if (cachedChat) {
+        Logger.debug(`fn: getLatestChat, Cache hit for ${cacheKey}`);
+        return cachedChat;
+      }
+    } catch (error) {
+      Logger.error(
+        `fn: getLatestChat, Error getting data from Redis for key ${cacheKey}`,
+        error,
+      );
+    }
+
+    Logger.debug(`fn: getLatestChat, Cache miss`);
+
+    const latestChat = await this.prisma.chat.findFirst({
+      where: { userId },
+      orderBy: { createdAt: 'desc' },
+      take: 1,
+      include: { messages: true },
+    });
+
+    if (!latestChat) {
+      throw new Error('No chats found for the user');
+    }
+
+    try {
+      await this.redisService.set(cacheKey, latestChat, 80);
+    } catch (error) {
+      Logger.error('fn: getLatestChat, Error setting data to Redis', error);
+    }
+
+    return latestChat;
+  }
   async saveUserMessage(chatId: number, content: string) {
     const newMessage = await this.prisma.message.create({
       data: {
@@ -209,7 +246,7 @@ export class ChatService {
     });
 
     try {
-      await this.redisService.set(cacheKey, chats, 3600); // Cache for 1 hour
+      await this.redisService.set(cacheKey, chats, 50); // Cache for 1 hour
     } catch (error) {
       Logger.error('fn: getAllChats, Error setting data to Redis', error);
     }

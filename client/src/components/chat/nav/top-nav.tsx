@@ -7,11 +7,14 @@ import {
   SheetTrigger,
 } from "@/components/ui/shadcn/sheet";
 import ChatSideBar from "@/components/chat/sidenav/sidebar";
-import { Github, Menu } from "lucide-react";
+import { Github, LayoutDashboard, Menu, MessageCircle } from "lucide-react";
 import Link from "next/link";
 import { Tooltip } from "@nextui-org/tooltip";
 import { UserButton } from "@clerk/nextjs";
+import { Button } from "@nextui-org/react";
+import { useRouter } from "next/navigation";
 const TopNav: React.FC<TopNavProps> = ({ chatId, chats }) => {
+  const router = useRouter();
   return (
     <nav className="bg-stone-200 dark:bg-stone-800 w-full z-20 border-b border-gray-200 dark:border-gray-600">
       <div className="max-w-screen flex flex-wrap justify-between mx-auto p-4">
@@ -35,6 +38,18 @@ const TopNav: React.FC<TopNavProps> = ({ chatId, chats }) => {
             </Tooltip>
           </Link>
 
+          <Tooltip content={"Dashboard"} placement={"top"}>
+            <Button
+              color="primary"
+              variant="faded"
+              startContent={<LayoutDashboard />}
+              onClick={() => router.push("/dash")}
+            >
+              <h1 className="text-md font-bold text-gray-900 dark:text-white">
+                Dashboard
+              </h1>
+            </Button>
+          </Tooltip>
           <Link href="https://github.com/Subham-Maity">
             <Tooltip content={"Creator"} placement={"top"}>
               <Github className="mr-2 w-6 h-6" />

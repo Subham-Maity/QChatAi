@@ -3,6 +3,6 @@ export * from './logger/default.logs';
 export * from './security/cors';
 export * from './security/helmet';
 export * from './error/all-exceptions.filter';
-export * from './costant/constant';
+export * from './constant/constant';
 export * from './utils/convertToAscii';
 export * from './utils/truncateString';

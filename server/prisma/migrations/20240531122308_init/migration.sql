@@ -11,7 +11,7 @@ CREATE TABLE "chats" (
     "description" TEXT NOT NULL,
     "pdfName" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "userId" VARCHAR(256) NOT NULL,
+    "userId" TEXT NOT NULL,
     "fileKey" TEXT NOT NULL,
     "status" "ChatStatus" NOT NULL DEFAULT 'creating',
 
@@ -28,6 +28,9 @@ CREATE TABLE "messages" (
 
     CONSTRAINT "messages_pkey" PRIMARY KEY ("id")
 );
+
+-- CreateIndex
+CREATE UNIQUE INDEX "chats_userId_key" ON "chats"("userId");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "chats_fileKey_key" ON "chats"("fileKey");
