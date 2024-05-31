@@ -13,16 +13,23 @@ export class ChatService {
     private readonly redisService: RedisService,
   ) {}
   async createChat(createChatDto: CreateChatDto, userId: string) {
+    const { title, description, fileKey, fileName } = createChatDto;
+    // Assign default values if title or description is not provided
+    const defaultTitle = 'Untitled';
+    const defaultDescription =
+      'This is your PDF content you can check it out...';
+
     await this.bullService.addPineconeJob({
       fileKey: createChatDto.fileKey,
     });
     const newChat = await this.prisma.chat.create({
       data: {
-        title: createChatDto.title,
-        description: createChatDto.description,
-        pdfName: createChatDto.fileName,
+        title: title || defaultTitle,
+        description: description || defaultDescription,
+        pdfName: fileName,
         userId,
-        fileKey: createChatDto.fileKey,
+        fileKey: fileKey,
+        status: 'creating',
       },
     });
     // Clear the cache for chats of the user
@@ -62,7 +69,7 @@ export class ChatService {
     }
 
     try {
-      await this.redisService.set(cacheKey, chat, 3600); // Cache for 1 hour
+      await this.redisService.set(cacheKey, chat, 50);
     } catch (error) {
       Logger.error('fn: getChat, Error setting data to Redis', error);
     }

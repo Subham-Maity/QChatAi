@@ -14,6 +14,7 @@ import TopNav from "@/components/chat/nav/top-nav";
 import { Card } from "@/components/ui/shadcn/card";
 import { getChats } from "@/components/chat/api/get-chats.api";
 import { getSignedUrl } from "@/components/start/api/get-file.api";
+import ChatSkeleton from "@/loader/chat-skeleton";
 
 const ChatLayout = ({ userId }: { userId: string }) => {
   const pathname = usePathname();
@@ -50,7 +51,11 @@ const ChatLayout = ({ userId }: { userId: string }) => {
   const isLoadingPdf = isLoadingSignedUrl || isFetchingSignedUrl;
 
   if (isLoadingChat || isLoadingChats || isLoadingPdf) {
-    return <div>Loading...</div>;
+    return (
+      <div>
+        <ChatSkeleton />
+      </div>
+    );
   }
   return (
     <div className="flex flex-col h-screen">

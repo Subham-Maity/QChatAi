@@ -1,5 +1,5 @@
 import ProjectLayout from "@/components/start/project-layout";
 
-export default function Home() {
+export default function StartPage() {
   return <ProjectLayout />;
 }

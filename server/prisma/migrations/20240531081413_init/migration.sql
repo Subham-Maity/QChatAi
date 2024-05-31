@@ -29,5 +29,8 @@ CREATE TABLE "messages" (
     CONSTRAINT "messages_pkey" PRIMARY KEY ("id")
 );
 
+-- CreateIndex
+CREATE UNIQUE INDEX "chats_fileKey_key" ON "chats"("fileKey");
+
 -- AddForeignKey
 ALTER TABLE "messages" ADD CONSTRAINT "messages_chatId_fkey" FOREIGN KEY ("chatId") REFERENCES "chats"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

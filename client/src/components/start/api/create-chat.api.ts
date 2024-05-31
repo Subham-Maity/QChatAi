@@ -5,6 +5,8 @@ import { CreateChatRequestData } from "@/components/start/types/file-upload.type
 const axios = createAxiosInstance(0);
 
 export const createChat = async (data: CreateChatRequestData) => {
+  console.log(JSON.stringify(data) + "Form Data");
+
   try {
     const response = await axios.post(backend_create_chat_path, data);
     return response.data;

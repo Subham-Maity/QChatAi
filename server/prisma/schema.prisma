@@ -14,7 +14,7 @@ model Chat {
   pdfName     String
   createdAt   DateTime   @default(now())
   userId      String     @db.VarChar(256)
-  fileKey     String
+  fileKey     String     @unique
   status      ChatStatus @default(creating)
   messages    Message[]
 

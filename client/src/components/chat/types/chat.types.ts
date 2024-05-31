@@ -13,5 +13,5 @@ export interface TopNavProps {
 }
 export interface ChatSideBarProps {
   chatId: string;
-  chats: ChatI[] | undefined; // Add the chats prop
+  chats: ChatI[] | undefined;
 }

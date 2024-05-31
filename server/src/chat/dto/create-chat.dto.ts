@@ -1,17 +1,23 @@
-import { IsString } from 'class-validator';
+import { IsString, IsOptional, IsNotEmpty } from 'class-validator';
 
 export class CreateChatDto {
   @IsString()
-  title: string;
-  @IsString()
-  description: string;
+  @IsOptional()
+  title?: string;
 
   @IsString()
+  @IsOptional()
+  description?: string;
+
+  @IsString()
+  @IsNotEmpty()
   userId: string;
 
   @IsString()
+  @IsNotEmpty()
   fileKey: string;
 
   @IsString()
+  @IsNotEmpty()
   fileName: string;
 }

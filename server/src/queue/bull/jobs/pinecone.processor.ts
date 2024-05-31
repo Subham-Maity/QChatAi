@@ -20,6 +20,7 @@ import { BullService } from '../bull.service';
 import { PINECONE_QUEUE } from '../constant';
 import { PineconeService } from '../../../pinecone';
 import { PineconeJob } from '../types';
+import { PrismaService } from '../../../prisma/prisma.service';
 
 @Processor(PINECONE_QUEUE)
 export class PineconeProcessor {
@@ -28,6 +29,7 @@ export class PineconeProcessor {
   constructor(
     private readonly pineconeService: PineconeService,
     private readonly bullService: BullService,
+    private readonly prisma: PrismaService,
   ) {}
 
   @OnQueueActive()
@@ -54,6 +56,12 @@ export class PineconeProcessor {
     );
     // Move the failed job to the DLQ
     await this.bullService.addPineconeJobToFailedQueue(job);
+
+    // Update chat status to 'failed'
+    await this.prisma.chat.update({
+      where: { fileKey: job.data.fileKey },
+      data: { status: 'failed' },
+    });
   }
 
   @OnQueueError()
@@ -116,6 +124,11 @@ export class PineconeProcessor {
     try {
       const { fileKey } = job.data;
       await this.pineconeService.loadS3IntoPinecone(fileKey);
+      // Update the chat status to 'created'
+      await this.prisma.chat.update({
+        where: { fileKey },
+        data: { status: 'created' },
+      });
       this.logger.log(
         `Pinecone job processed successfully for file ${fileKey}`,
       );
@@ -124,6 +137,11 @@ export class PineconeProcessor {
         `Failed to process Pinecone job for file ${job.data.fileKey}`,
         error.stack,
       );
+      // Update the chat status to 'failed'
+      await this.prisma.chat.update({
+        where: { fileKey: job.data.fileKey },
+        data: { status: 'failed' },
+      });
       throw error;
     }
   }

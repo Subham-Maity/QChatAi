@@ -21,6 +21,7 @@
     "@react-pdf/renderer": "^3.4.4",
     "@reduxjs/toolkit": "^2.2.5",
     "@tabler/icons-react": "^3.5.0",
+    "@tanstack/react-table": "^8.17.3",
     "ai": "^3.1.15",
     "axios": "^1.7.2",
     "class-variance-authority": "^0.7.0",
