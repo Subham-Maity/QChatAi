@@ -10,15 +10,19 @@ import { ConfigService } from '@nestjs/config';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 import * as fs from 'node:fs';
 import { Readable } from 'stream';
+import { RedisService } from '../redis';
 
 @Injectable()
 export class UploadService {
   private readonly s3Client: S3Client;
   private readonly s3: S3;
   private readonly bucketName: string;
-  private fileKeys: string[] = []; // Array to store file keys
+  private fileKeys: string[] = [];
 
-  constructor(private readonly configService: ConfigService) {
+  constructor(
+    private readonly configService: ConfigService,
+    private readonly redisService: RedisService,
+  ) {
     this.s3Client = new S3Client({
       region: this.configService.get<string>('AWS_S3_REGION'),
       credentials: {
@@ -59,12 +63,43 @@ export class UploadService {
   }
 
   async getS3Url(fileKey: string): Promise<string> {
+    const cacheKey = `s3-url:${fileKey}`;
+    const ttlInSeconds = 3600;
+
+    try {
+      const cachedUrl = await this.redisService.get(cacheKey);
+      if (cachedUrl) {
+        console.log(`Cache hit for file key: ${fileKey}`);
+        return cachedUrl;
+      }
+    } catch (error) {
+      console.error(
+        `Error getting URL from Redis for file key: ${fileKey}`,
+        error,
+      );
+    }
+
+    console.log(`Cache miss for file key: ${fileKey}`);
+
     const command = new GetObjectCommand({
       Bucket: this.bucketName,
       Key: fileKey,
     });
 
-    return await getSignedUrl(this.s3Client, command, { expiresIn: 3600 });
+    const url = await getSignedUrl(this.s3Client, command, {
+      expiresIn: ttlInSeconds,
+    });
+
+    try {
+      await this.redisService.set(cacheKey, url, ttlInSeconds);
+    } catch (error) {
+      console.error(
+        `Error setting URL to Redis for file key: ${fileKey}`,
+        error,
+      );
+    }
+
+    return url;
   }
 
   async deleteFile(fileKey: string): Promise<void> {

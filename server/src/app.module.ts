@@ -12,6 +12,7 @@ import { APP_GUARD } from '@nestjs/core';
 import { ClerkAuthGuard } from './auth/guard';
 import { ContextModule } from './context/context.module';
 import { QueueModule } from './queue/bull/bull.module';
+import { RedisModule } from './redis/redis.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { QueueModule } from './queue/bull/bull.module';
     AuthModule,
     ContextModule,
     QueueModule,
+    RedisModule,
   ],
   // providers: [
   //   {
