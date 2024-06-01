@@ -133,3 +133,8 @@
 .no-visible-scrollbar::-webkit-scrollbar {
   display: none;
 }
+@layer utilities {
+  .heading {
+    @apply font-bold text-4xl md:text-5xl text-center;
+  }
+}
