@@ -1,4 +1,32 @@
 # Chat with PDF - RAG
+## 🔗 Logic
+
+![source](./assets/diagram-subham-m.png)
+
+### 1. Document Ingestion
+- **User Upload**: Users upload a PDF file (or any other file) to S3/Cloudinary.
+- **Extract Content**: The content of the PDF is extracted.
+- **Split into Chunks**: The extracted content is split into manageable chunks.
+
+### 2. Generate Embeddings
+- **Generate Embeddings**: Each chunk is processed to generate vector embeddings using an embedding API (e.g., OpenAI Embeddings).
+- **Embeddings**: These are numeric representations of the chunks, which capture the semantic meaning.
+
+### 3. Knowledge Base
+- **Store Embeddings**: The embeddings and document chunks are stored in a database (like PostgreSQL) that acts as the knowledge base.
+- **Embedding Database**: Tools like pyevctor, pinecone, faiss, or chromadb can be used for storing and indexing these embeddings.
+
+### 4. Retrieval
+- **User Question**: A user asks a question.
+- **Generate Query Embedding**: The question is converted into a vector embedding.
+- **Semantic Search**: Using the question embedding, a semantic search is performed on the stored document embeddings.
+- **Ranked Result**: Results are ranked based on similarity scores (e.g., cosine similarity).
+
+### 5. Context to LLM (Large Language Model)
+- **CTX**: The top-k similar results are used to provide context to the LLM (e.g., GPT-4, LLaMA 2, Mistral 7B, ChatGPT).
+- **Answer**: The LLM uses this context to generate and return a relevant answer to the user.
+
+
 ## 🔗 How to Use
 
 1. **Sign In**: Start by signing in from the landing page. Once signed in, you'll see a `Let's Start` button. Click on this button to begin.
