@@ -2,6 +2,10 @@
 
 https://github.com/Subham-Maity/QChatAi/assets/97989643/7eeae498-91f0-4c35-a9b4-6b4046639392
 
+## Article
+
+- [Dev Community](https://dev.to/codexam/building-a-chat-with-pdf-rag-application-nextjs-and-nestjs-j88)
+- [Hashnode](https://codexam.hashnode.dev/building-a-chat-with-pdf-rag-application-nextjs-and-nestjs)
 
 ## 🔗 Logic
 
