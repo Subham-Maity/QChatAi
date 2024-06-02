@@ -7,17 +7,19 @@ WORKDIR /app
 # Copy package.json and package-lock.json (if available)
 COPY package*.json ./
 
+COPY prisma ./prisma/
+
 # Install dependencies
-RUN npm install
+RUN yarn
 
 # Copy the entire project
 COPY . .
 
 # Build the NestJS application
-RUN npm run build
+RUN yarn run build
 
 # Expose the port on which the NestJS server will run
 EXPOSE 3333
 
 # Start the NestJS server
-CMD ["npm", "run", "start:prod"]
+CMD ["yarn", "run", "start:dev"]
