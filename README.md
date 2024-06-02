@@ -1,5 +1,17 @@
 # Chat with PDF - RAG
+## 🔗 How to Use
 
+1. **Sign In**: Start by signing in from the landing page. Once signed in, you'll see a `Let's Start` button. Click on this button to begin.
+
+2. **Create a Project**: After clicking `Let's Start`, you can create a project. Provide a title, description, and upload a PDF file. The PDF will be uploaded to a cloud bucket (such as S3) and stored in PostgreSQL.
+
+3. **PDF Processing**: On the backend, the PDF file is processed to generate vector embeddings of the content. These embeddings are then stored for future use.
+
+4. **Asynchronous Processing**: The entire processing is handled asynchronously using BullMQ, ensuring that it is efficient and does not block other operations, allowing you to proceed without waiting for the chat interface to be ready.
+
+5. **Dashboard Monitoring**: You can view all your projects on the frontend dashboard. Each project will display a status: 'creating', 'failed', or 'created'. This allows you to track the progress and know when your project is ready. If any issues occur, you will be able to see the status and take appropriate action.
+
+6. **Chat Interface**: Once a project is ready, you can open it to access a user-friendly chat interface. Here, you can ask questions and receive relevant answers based on the content of your PDF.
 ## 🔗 How to Run
 
 ### Without Docker
