@@ -1,4 +1,8 @@
 # Chat with PDF - RAG
+
+https://github.com/Subham-Maity/QChatAi/assets/97989643/7eeae498-91f0-4c35-a9b4-6b4046639392
+
+
 ## 🔗 Logic
 
 ![source](./assets/diagram-subham-m.png)
