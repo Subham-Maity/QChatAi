@@ -1,5 +1,7 @@
 # Chat with PDF - RAG
 
+## [▶️ PLAY](https://www.loom.com/share/2a5e9c5ffa314406b6a6f408249bed45?sid=9b5322e2-e86e-4196-9f69-86423d538393)
+## [▶️ PREVIEW](https://q-chat-ai.vercel.app/)
 https://github.com/Subham-Maity/QChatAi/assets/97989643/7eeae498-91f0-4c35-a9b4-6b4046639392
 
 ## Article
