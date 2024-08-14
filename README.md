@@ -186,12 +186,29 @@ https://github.com/Subham-Maity/QChatAi/assets/97989643/7eeae498-91f0-4c35-a9b4-
 4. We use Redis for data caching. You can use it locally or connect to the production URL.
 
 ## 🔗 Helper Notes
-1. Use Prisma commands:
+a. Use Prisma commands:
    ```sh
    npx prisma studio
    npx prisma migrate dev --name init
    ```
-2. S3 policy (`arn:aws:s3:::<bucket-name>/<key-name-prefix>`):
+b. S3
+
+1. *Bucket Create*
+
+- ACLs disabled (recommended)
+- Block all public access (Uncheck)
+- Bucket Versioning - Disable 
+- Object Lock - Disable 
+- Default encryption 
+   - Encryption type - Server-side encryption with Amazon S3 managed keys (SSE-S3)
+   - Bucket Key - Enable
+
+2. *Bucket -> Permission*
+`Bucket policy - Edit` 
+
+> Paste this but make sure - Edit Block public access - Disable  
+
+2.1 S3 policy (`arn:aws:s3:::<bucket-name>`): 
    ```json
    {
      "Version": "2012-10-17",
@@ -201,12 +218,13 @@ https://github.com/Subham-Maity/QChatAi/assets/97989643/7eeae498-91f0-4c35-a9b4-
          "Effect": "Allow",
          "Principal": "*",
          "Action": "s3:GetObject",
-         "Resource": "arn:aws:s3:::<bucket-name>/<key-name-prefix>/*"
+         "Resource": "arn:aws:s3:::<bucket-name>/*"
        }
      ]
    }
    ```
-3. CORS configuration:
+2.2 . CORS configuration:
+> Cross-origin resource sharing (CORS) - edit
    ```json
    [
      {
@@ -217,12 +235,4 @@ https://github.com/Subham-Maity/QChatAi/assets/97989643/7eeae498-91f0-4c35-a9b4-
      }
    ]
    ```
-*Bucket Create*
 
-- ACLs disabled (recommended)
-- Block all public access (Uncheck)
-- Bucket Versioning - Disable 
-- Object Lock - Disable 
-- Default encryption 
-   - Encryption type - Server-side encryption with Amazon S3 managed keys (SSE-S3)
-   - Bucket Key - Enable
