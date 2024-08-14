@@ -217,3 +217,12 @@ https://github.com/Subham-Maity/QChatAi/assets/97989643/7eeae498-91f0-4c35-a9b4-
      }
    ]
    ```
+*Bucket Create*
+
+- ACLs disabled (recommended)
+- Block all public access (Uncheck)
+- Bucket Versioning - Disable 
+- Object Lock - Disable 
+- Default encryption 
+   - Encryption type - Server-side encryption with Amazon S3 managed keys (SSE-S3)
+   - Bucket Key - Enable
