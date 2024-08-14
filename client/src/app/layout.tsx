@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import "./globals.css";
-import { ClerkProvider } from "@clerk/nextjs";
+import "../../style/globals.css";
+import { dark } from '@clerk/themes';
 import React from "react";
 import ReactQueryProvider from "@/app/providers/react-query-provider";
 import { Toaster } from "sonner";
@@ -9,6 +9,7 @@ import { ThemeProvider } from "@/app/providers/theme-provider";
 import AuthGuard from "@/protected/auth-guard";
 import { ReduxProvider } from "@/app/providers/redux-provider";
 import { NextUIProvider } from "@nextui-org/react";
+import { ClerkProvider } from '@clerk/nextjs';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,7 +25,7 @@ export default function RootLayout({
 }>) {
   return (
     <ReactQueryProvider>
-      <ClerkProvider>
+      <ClerkProvider appearance={{ baseTheme: dark }}>
         <html lang="en">
           <Toaster position="top-right" />
           <body
