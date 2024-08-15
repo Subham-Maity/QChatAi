@@ -9,26 +9,22 @@ import { BorderBeam } from "@/components/ui/magicui/border-beam";
 import { Button } from "@/components/ui/shadcn/button";
 import { toast, Toaster } from "sonner";
 import dynamic from "next/dynamic";
+import useCloudinaryVideo from "@/hook/use-cloudinary-video";
 
 const ReactPlayer = dynamic(() => import("react-player/lazy"), { ssr: false });
 
 const Hero = () => {
   const [isHovering, setIsHovering] = useState(false);
-  const [isVideoReady, setIsVideoReady] = useState(false);
-
+  const { videoUrl, loading } = useCloudinaryVideo("q-chat-ai/dash");
   const handleMouseEnter = () => {
     setIsHovering(true);
-    if (!isVideoReady) {
+    if (loading) {
       toast.warning("Video is loading, Please wait...", { duration: 3000 });
     }
   };
 
   const handleMouseLeave = () => {
     setIsHovering(false);
-  };
-
-  const handleVideoReady = () => {
-    setIsVideoReady(true);
   };
   return (
     <Wrapper>
@@ -106,22 +102,23 @@ const Hero = () => {
                     isHovering ? "opacity-100" : "opacity-0"
                   }`}
                 >
-                  <ReactPlayer
-                    url="/landing/dash.mp4"
-                    playing={isHovering}
-                    loop
-                    width="100%"
-                    height="100%"
-                    className="rounded-md lg:rounded-xl bg-foreground/10 shadow-2xl ring-1 ring-border"
-                    onReady={handleVideoReady}
-                    config={{
-                      file: {
-                        attributes: {
-                          style: { objectFit: "cover" },
+                  {!loading && videoUrl && (
+                    <ReactPlayer
+                      url={videoUrl}
+                      playing={isHovering}
+                      loop
+                      width="100%"
+                      height="100%"
+                      className="rounded-md lg:rounded-xl bg-foreground/10 shadow-2xl ring-1 ring-border"
+                      config={{
+                        file: {
+                          attributes: {
+                            style: { objectFit: "cover" },
+                          },
                         },
-                      },
-                    }}
-                  />
+                      }}
+                    />
+                  )}
                 </div>
                 {!isHovering && (
                   <div className="absolute inset-0 flex items-center justify-center">
