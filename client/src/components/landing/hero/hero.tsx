@@ -1,6 +1,6 @@
 import React from "react";
-import Wrapper from "@/components/hero/global/wrapper";
-import Container from "@/components/hero/global/container";
+import Wrapper from "@/components/landing/global/wrapper";
+import Container from "@/components/landing/global/container";
 import Image from "next/image";
 import Link from "next/link";
 

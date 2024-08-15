@@ -1,215 +1,155 @@
-export const navItems = [
-  { name: "About", link: "#about" },
-  { name: "Projects", link: "#projects" },
-  { name: "Testimonials", link: "#testimonials" },
-  { name: "Contact", link: "#contact" },
-];
-export const gridItems = [
-  {
-    id: 1,
-    title: "We help everyone",
-    description: "",
-    className: "lg:col-span-3 md:col-span-6 md:row-span-4 lg:min-h-[60vh]",
-    imgClassName: "w-full h-full",
-    titleClassName: "justify-end",
-    img: "/hero/robo.jpeg",
-    spareImg: "",
-  },
-  {
-    id: 2,
-    title: "Your business is in good hands with us!",
-    description: "",
-    className: "lg:col-span-2 md:col-span-3 md:row-span-2",
-    imgClassName: "",
-    titleClassName: "justify-start",
-    img: "",
-    spareImg: "",
-  },
-  {
-    id: 3,
-    title: "My tech stack",
-    description: "I constantly try to improve",
-    className: "lg:col-span-2 md:col-span-3 md:row-span-2",
-    imgClassName: "",
-    titleClassName: "justify-center",
-    img: "",
-    spareImg: "",
-  },
-  {
-    id: 4,
-    title: "I can help you to write code",
-    description: "",
-    className: "lg:col-span-2 md:col-span-3 md:row-span-1",
-    imgClassName: "",
-    titleClassName: "justify-start",
-    img: "/hero/b4.svg",
-    spareImg: "/hero/grid.svg",
-  },
+import Icons from "@/components/landing/global/icons";
 
+export const perks = [
   {
-    id: 5,
-    title: "Currently building a JS Animation library",
-    description: "The Inside Scoop",
-    className: "md:col-span-3 md:row-span-2",
-    imgClassName: "absolute right-0 bottom-0 md:w-96 w-60",
-    titleClassName: "justify-center md:justify-start lg:justify-center",
-    img: "/b5.svg",
-    spareImg: "/grid.svg",
+    icon: Icons.auth,
+    title: "Sign Up",
+    info: "Create your free account to get started with Astra.",
   },
   {
-    id: 6,
-    title: "Do you want to start a project together?",
-    description: "",
-    className: "lg:col-span-2 md:col-span-3 md:row-span-1",
-    imgClassName: "",
-    titleClassName: "justify-center md:max-w-full max-w-60 text-center",
-    img: "",
-    spareImg: "",
+    icon: Icons.customize,
+    title: "Upload",
+    info: "Easily upload the PDF documents you'd like to chat with.",
+  },
+  {
+    icon: Icons.launch,
+    title: "Instant answers",
+    info: "Ask questions, extract information, and summarize documents with AI.",
   },
 ];
 
-export const projects = [
+export const features = [
   {
-    id: 1,
-    title: "3D Solar System Planets to Explore",
-    des: "Explore the wonders of our solar system with this captivating 3D simulation of the planets using Three.js.",
-    img: "/p1.svg",
-    iconLists: ["/re.svg", "/tail.svg", "/ts.svg", "/three.svg", "/fm.svg"],
-    link: "/ui.earth.com",
+    icon: Icons.bolt,
+    title: "Fast Setup",
+    info: "Get your website up and running in minutes with our intuitive AI-powered builder.",
   },
   {
-    id: 2,
-    title: "Yoom - Video Conferencing App",
-    des: "Simplify your video conferencing experience with Yoom. Seamlessly connect with colleagues and friends.",
-    img: "/p2.svg",
-    iconLists: ["/next.svg", "/tail.svg", "/ts.svg", "/stream.svg", "/c.svg"],
-    link: "/ui.yoom.com",
+    icon: Icons.palette,
+    title: "Customizable Templates",
+    info: "Choose from a variety of stunning templates and customize them to suit your brand.",
   },
   {
-    id: 3,
-    title: "AI Image SaaS - Canva Application",
-    des: "A REAL Software-as-a-Service app with AI features and a payments and credits system using the latest tech stack.",
-    img: "/p3.svg",
-    iconLists: ["/re.svg", "/tail.svg", "/ts.svg", "/three.svg", "/c.svg"],
-    link: "/ui.aiimg.com",
+    icon: Icons.seo,
+    title: "SEO Optimized",
+    info: "Built-in SEO features ensure your website ranks well on search engines.",
   },
   {
-    id: 4,
-    title: "Animated Apple Iphone 3D Website",
-    des: "Recreated the Apple iPhone 15 Pro website, combining GSAP animations and Three.js 3D effects..",
-    img: "/p4.svg",
-    iconLists: ["/next.svg", "/tail.svg", "/ts.svg", "/three.svg", "/gsap.svg"],
-    link: "/ui.apple.com",
+    icon: Icons.monitor,
+    title: "Responsive Design",
+    info: "Your website will look great on any device, from desktops to mobile phones.",
+  },
+  {
+    icon: Icons.shop,
+    title: "E-Commerce Ready",
+    info: "Start selling online with our e-commerce features and integrations.",
+  },
+  {
+    icon: Icons.server,
+    title: "Secure Hosting",
+    info: "Enjoy peace of mind with secure and reliable hosting for your website.",
   },
 ];
 
-export const testimonials = [
+export const pricingCards = [
   {
-    quote:
-      "Collaborating with Adrian was an absolute pleasure. His professionalism, promptness, and dedication to delivering exceptional results were evident throughout our project. Adrian's enthusiasm for every facet of development truly stands out. If you're seeking to elevate your website and elevate your brand, Adrian is the ideal partner.",
-    name: "Michael Johnson",
-    title: "Director of AlphaStream Technologies",
+    title: "Starter",
+    description: "Perfect for trying out plura",
+    price: "Free",
+    duration: "",
+    highlight: "Key features",
+    buttonText: "Start for free",
+    features: ["Limited projects", "1 Team member", "Basic features"],
+    priceId: "",
   },
   {
-    quote:
-      "Collaborating with Adrian was an absolute pleasure. His professionalism, promptness, and dedication to delivering exceptional results were evident throughout our project. Adrian's enthusiasm for every facet of development truly stands out. If you're seeking to elevate your website and elevate your brand, Adrian is the ideal partner.",
-    name: "Michael Johnson",
-    title: "Director of AlphaStream Technologies",
+    title: "Unlimited Saas",
+    description: "The ultimate agency kit",
+    price: "$199",
+    duration: "month",
+    highlight: "Key features",
+    buttonText: "Upgrade to Pro",
+    features: [
+      "Unlimited projects",
+      "5 Team members",
+      "Advanced design tools",
+      "Customizable domain",
+    ],
+    priceId: "price_1OYxkqFj9oKEERu1KfJGWxgN",
   },
   {
-    quote:
-      "Collaborating with Adrian was an absolute pleasure. His professionalism, promptness, and dedication to delivering exceptional results were evident throughout our project. Adrian's enthusiasm for every facet of development truly stands out. If you're seeking to elevate your website and elevate your brand, Adrian is the ideal partner.",
-    name: "Michael Johnson",
-    title: "Director of AlphaStream Technologies",
-  },
-  {
-    quote:
-      "Collaborating with Adrian was an absolute pleasure. His professionalism, promptness, and dedication to delivering exceptional results were evident throughout our project. Adrian's enthusiasm for every facet of development truly stands out. If you're seeking to elevate your website and elevate your brand, Adrian is the ideal partner.",
-    name: "Michael Johnson",
-    title: "Director of AlphaStream Technologies",
-  },
-  {
-    quote:
-      "Collaborating with Adrian was an absolute pleasure. His professionalism, promptness, and dedication to delivering exceptional results were evident throughout our project. Adrian's enthusiasm for every facet of development truly stands out. If you're seeking to elevate your website and elevate your brand, Adrian is the ideal partner.",
-    name: "Michael Johnson",
-    title: "Director of AlphaStream Technologies",
-  },
-];
-
-export const companies = [
-  {
-    id: 1,
-    name: "cloudinary",
-    img: "/cloud.svg",
-    nameImg: "/cloudName.svg",
-  },
-  {
-    id: 2,
-    name: "appwrite",
-    img: "/app.svg",
-    nameImg: "/appName.svg",
-  },
-  {
-    id: 3,
-    name: "HOSTINGER",
-    img: "/host.svg",
-    nameImg: "/hostName.svg",
-  },
-  {
-    id: 4,
-    name: "stream",
-    img: "/s.svg",
-    nameImg: "/streamName.svg",
-  },
-  {
-    id: 5,
-    name: "docker.",
-    img: "/dock.svg",
-    nameImg: "/dockerName.svg",
+    title: "Enterprise",
+    description: "For serious agency owners",
+    price: "$399",
+    duration: "month",
+    highlight: "Everything in Starter, plus",
+    buttonText: "Upgrade to Enterprise",
+    features: [
+      "Unlimited projects",
+      "Unlimited Team members",
+      "Custom branding",
+      "Priority support (24/7)",
+    ],
+    priceId: "price_1OYxkqFj9oKEERu1NbKUxXxN",
   },
 ];
 
-export const workExperience = [
+export const bentoCards = [
   {
-    id: 1,
-    title: "Frontend Engineer Intern",
-    desc: "Assisted in the development of a web-based platform using React.js, enhancing interactivity.",
-    className: "md:col-span-2",
-    thumbnail: "/exp1.svg",
+    title: "Start with Inspiration",
+    info: "Browse our vast library of pre-designed templates or upload your own images.",
+    imgSrc: "/assets/bento-1.svg", // Lightbulb or Inspiration icon
+    alt: "Inspiration for website creation",
   },
   {
-    id: 2,
-    title: "Mobile App Dev - JSM Tech",
-    desc: "Designed and developed mobile app for both iOS & Android platforms using React Native.",
-    className: "md:col-span-2", // change to md:col-span-2
-    thumbnail: "/exp2.svg",
+    title: "AI Assists Your Vision",
+    info: "Our intelligent AI tailors suggestions and functionalities based on your goals.",
+    imgSrc: "/assets/bento1.svg", // AI Assistant icon
+    alt: "AI website building assistant",
   },
   {
-    id: 3,
-    title: "Freelance App Dev Project",
-    desc: "Led the dev of a mobile app for a client, from initial concept to deployment on app stores.",
-    className: "md:col-span-2", // change to md:col-span-2
-    thumbnail: "/exp3.svg",
+    title: "Drag & Drop Customization",
+    info: "Effortlessly personalize your website with our intuitive drag-and-drop editor.",
+    imgSrc: "/assets/bento1.svg", // Drag and Drop icon or hand editing a website
+    alt: "Website customization with drag and drop",
   },
   {
-    id: 4,
-    title: "Lead Frontend Developer",
-    desc: "Developed and maintained user-facing features using modern frontend technologies.",
-    className: "md:col-span-2",
-    thumbnail: "/exp4.svg",
+    title: "Launch & Shine Online",
+    info: "Publish your website with a single click and take your brand to the world.",
+    imgSrc: "/assets/bento1.svg", // Rocket launching or website going live
+    alt: "Website launch and publication",
   },
 ];
-export const socialMedia = [
+
+export const reviews = [
   {
-    id: 1,
-    img: "/git.svg",
+    name: "Jack",
+    username: "@jack",
+    body: "I've never seen anything like this before. It's amazing. I love it.",
   },
   {
-    id: 2,
-    img: "/twit.svg",
+    name: "Jill",
+    username: "@jill",
+    body: "I don't know what to say. I'm speechless. This is amazing.",
   },
   {
-    id: 3,
-    img: "/link.svg",
+    name: "John",
+    username: "@john",
+    body: "I'm at a loss for words. This is amazing. I love it.",
+  },
+  {
+    name: "Jane",
+    username: "@jane",
+    body: "I'm at a loss for words. This is amazing. I love it.",
+  },
+  {
+    name: "Jenny",
+    username: "@jenny",
+    body: "I'm at a loss for words. This is amazing. I love it.",
+  },
+  {
+    name: "James",
+    username: "@james",
+    body: "I'm at a loss for words. This is amazing. I love it.",
   },
 ];
