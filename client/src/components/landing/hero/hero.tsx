@@ -1,14 +1,28 @@
-import React from "react";
+"use client";
+import React, { useRef, useState } from "react";
 import Wrapper from "@/components/landing/global/wrapper";
 import Container from "@/components/landing/global/container";
 import Image from "next/image";
 import Link from "next/link";
-
-import { ArrowRight, ChevronRight } from "lucide-react";
+import { ArrowRight, ChevronRight, Play } from "lucide-react";
 import { BorderBeam } from "@/components/ui/magicui/border-beam";
 import { Button } from "@/components/ui/shadcn/button";
 
 const Hero = () => {
+  const [isHovering, setIsHovering] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  const handleMouseEnter = () => {
+    setIsHovering(true);
+    videoRef.current?.play();
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovering(false);
+    videoRef.current?.pause();
+    videoRef.current?.load(); // Reset video to start
+  };
+
   return (
     <Wrapper>
       <div className="absolute inset-0 dark:bg-[linear-gradient(to_right,#e2e8f0_1px,transparent_1px),linear-gradient(to_bottom,#e2e8f0_1px,transparent_1px)] bg-[linear-gradient(to_right,#161616_1px,transparent_1px),linear-gradient(to_bottom,#161616_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_110%)] -z-10 h-[150vh]" />
@@ -63,15 +77,33 @@ const Hero = () => {
 
           <div className="relative flex items-center py-10 md:py-20 w-full">
             <div className="absolute top-1/2 left-1/2 -z-10 gradient w-3/4 -translate-x-1/2 h-3/4 -translate-y-1/2 inset-0 blur-[10rem]"></div>
-            <div className="-m-2 rounded-xl p-2 ring-1 ring-inset ring-foreground/20 lg:-m-4 lg:rounded-2xl bg-opacity-50 backdrop-blur-3xl">
-              <Image
-                src="/landing/dashboard.svg"
-                alt="banner image"
-                width={1200}
-                height={1200}
-                quality={100}
-                className="rounded-md lg:rounded-xl bg-foreground/10 shadow-2xl ring-1 ring-border"
-              />
+            <div
+              className="-m-2 rounded-xl p-2 ring-1 ring-inset ring-foreground/20 lg:-m-4 lg:rounded-2xl bg-opacity-50 backdrop-blur-3xl relative"
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+            >
+              <div className="relative w-full h-full">
+                <Image
+                  src="/landing/dashboard.svg"
+                  alt="banner image"
+                  width={1200}
+                  height={1200}
+                  quality={100}
+                  className={`rounded-md lg:rounded-xl bg-foreground/10 shadow-2xl ring-1 ring-border transition-opacity duration-300 ${isHovering ? "opacity-0" : "opacity-100"}`}
+                />
+                <video
+                  ref={videoRef}
+                  src="/landing/dash.mp4"
+                  loop
+                  playsInline
+                  className={`absolute top-0 left-0 w-full h-full object-cover rounded-md lg:rounded-xl bg-foreground/10 shadow-2xl ring-1 ring-border transition-opacity duration-300 ${isHovering ? "opacity-100" : "opacity-0"}`}
+                />
+                {!isHovering && (
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <Play className="w-16 h-16 text-[#064ad3] opacity-70" />
+                  </div>
+                )}
+              </div>
 
               <BorderBeam size={250} duration={12} delay={9} />
             </div>
