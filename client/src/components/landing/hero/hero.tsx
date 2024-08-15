@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Wrapper from "@/components/landing/global/wrapper";
 import Container from "@/components/landing/global/container";
 import Image from "next/image";
@@ -13,13 +13,8 @@ import dynamic from "next/dynamic";
 const ReactPlayer = dynamic(() => import("react-player/lazy"), { ssr: false });
 
 const Hero = () => {
-  const [isClient, setIsClient] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
   const [isVideoReady, setIsVideoReady] = useState(false);
-
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
 
   const handleMouseEnter = () => {
     setIsHovering(true);
@@ -103,37 +98,31 @@ const Hero = () => {
                   height={1200}
                   quality={100}
                   className={`rounded-md lg:rounded-xl bg-foreground/10 shadow-2xl ring-1 ring-border transition-opacity duration-300 ${
-                    isHovering && isClient ? "opacity-0" : "opacity-100"
+                    isHovering ? "opacity-0" : "opacity-100"
                   }`}
                 />
-                {isClient && (
-                  <div
-                    className={`absolute top-0 left-0 w-full h-full transition-opacity duration-300 ${
-                      isHovering ? "opacity-100" : "opacity-0"
-                    }`}
-                  >
-                    <ReactPlayer
-                      url="/landing/dash.mp4"
-                      playing={isHovering}
-                      loop
-                      width="100%"
-                      height="100%"
-                      className="rounded-md lg:rounded-xl bg-foreground/10 shadow-2xl ring-1 ring-border"
-                      onReady={handleVideoReady}
-                      style={{ borderRadius: "inherit", overflow: "hidden" }}
-                      config={{
-                        file: {
-                          attributes: {
-                            style: {
-                              objectFit: "cover",
-                              borderRadius: "inherit",
-                            },
-                          },
+                <div
+                  className={`absolute top-0 left-0 w-full h-full transition-opacity duration-300 ${
+                    isHovering ? "opacity-100" : "opacity-0"
+                  }`}
+                >
+                  <ReactPlayer
+                    url="/landing/dash.mp4"
+                    playing={isHovering}
+                    loop
+                    width="100%"
+                    height="100%"
+                    className="rounded-md lg:rounded-xl bg-foreground/10 shadow-2xl ring-1 ring-border"
+                    onReady={handleVideoReady}
+                    config={{
+                      file: {
+                        attributes: {
+                          style: { objectFit: "cover" },
                         },
-                      }}
-                    />
-                  </div>
-                )}
+                      },
+                    }}
+                  />
+                </div>
                 {!isHovering && (
                   <div className="absolute inset-0 flex items-center justify-center">
                     <Play className="w-16 h-16 text-[#064ad3] opacity-70" />
