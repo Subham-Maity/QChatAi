@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Wrapper from "@/components/landing/global/wrapper";
 import Container from "@/components/landing/global/container";
 import Image from "next/image";
@@ -7,24 +7,37 @@ import Link from "next/link";
 import { ArrowRight, ChevronRight, Play } from "lucide-react";
 import { BorderBeam } from "@/components/ui/magicui/border-beam";
 import { Button } from "@/components/ui/shadcn/button";
+import { toast, Toaster } from "sonner";
+import dynamic from "next/dynamic";
+
+const ReactPlayer = dynamic(() => import("react-player/lazy"), { ssr: false });
 
 const Hero = () => {
+  const [isClient, setIsClient] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
-  const videoRef = useRef<HTMLVideoElement>(null);
+  const [isVideoReady, setIsVideoReady] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   const handleMouseEnter = () => {
     setIsHovering(true);
-    videoRef.current?.play();
+    if (!isVideoReady) {
+      toast.warning("Video is loading, Please wait...", { duration: 3000 });
+    }
   };
 
   const handleMouseLeave = () => {
     setIsHovering(false);
-    videoRef.current?.pause();
-    videoRef.current?.load(); // Reset video to start
   };
 
+  const handleVideoReady = () => {
+    setIsVideoReady(true);
+  };
   return (
     <Wrapper>
+      <Toaster position="top-right" />
       <div className="absolute inset-0 dark:bg-[linear-gradient(to_right,#e2e8f0_1px,transparent_1px),linear-gradient(to_bottom,#e2e8f0_1px,transparent_1px)] bg-[linear-gradient(to_right,#161616_1px,transparent_1px),linear-gradient(to_bottom,#161616_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_110%)] -z-10 h-[150vh]" />
 
       <Container>
@@ -89,15 +102,38 @@ const Hero = () => {
                   width={1200}
                   height={1200}
                   quality={100}
-                  className={`rounded-md lg:rounded-xl bg-foreground/10 shadow-2xl ring-1 ring-border transition-opacity duration-300 ${isHovering ? "opacity-0" : "opacity-100"}`}
+                  className={`rounded-md lg:rounded-xl bg-foreground/10 shadow-2xl ring-1 ring-border transition-opacity duration-300 ${
+                    isHovering && isClient ? "opacity-0" : "opacity-100"
+                  }`}
                 />
-                <video
-                  ref={videoRef}
-                  src="/landing/dash.mp4"
-                  loop
-                  playsInline
-                  className={`absolute top-0 left-0 w-full h-full object-cover rounded-md lg:rounded-xl bg-foreground/10 shadow-2xl ring-1 ring-border transition-opacity duration-300 ${isHovering ? "opacity-100" : "opacity-0"}`}
-                />
+                {isClient && (
+                  <div
+                    className={`absolute top-0 left-0 w-full h-full transition-opacity duration-300 ${
+                      isHovering ? "opacity-100" : "opacity-0"
+                    }`}
+                  >
+                    <ReactPlayer
+                      url="/landing/dash.mp4"
+                      playing={isHovering}
+                      loop
+                      width="100%"
+                      height="100%"
+                      className="rounded-md lg:rounded-xl bg-foreground/10 shadow-2xl ring-1 ring-border"
+                      onReady={handleVideoReady}
+                      style={{ borderRadius: "inherit", overflow: "hidden" }}
+                      config={{
+                        file: {
+                          attributes: {
+                            style: {
+                              objectFit: "cover",
+                              borderRadius: "inherit",
+                            },
+                          },
+                        },
+                      }}
+                    />
+                  </div>
+                )}
                 {!isHovering && (
                   <div className="absolute inset-0 flex items-center justify-center">
                     <Play className="w-16 h-16 text-[#064ad3] opacity-70" />
