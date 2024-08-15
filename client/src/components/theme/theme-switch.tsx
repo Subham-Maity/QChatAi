@@ -3,6 +3,7 @@
 import * as React from "react";
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
+import { usePathname } from "next/navigation";
 
 import { Button } from "@/components/ui/shadcn/button";
 import {
@@ -14,6 +15,12 @@ import {
 
 export function ThemeSwitch() {
   const { setTheme } = useTheme();
+  const pathname = usePathname();
+  const isRootPath = pathname === "/";
+
+  if (isRootPath) {
+    return null;
+  }
 
   return (
     <DropdownMenu>

@@ -1,0 +1,185 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    :root {
+        --gradient: linear-gradient(to top left, #007adf, #00ecbc);
+
+        --background: 220 65% 3.52%;
+        --foreground: 220 10% 97.2%;
+
+        --muted: 220 50% 13.2%;
+        --muted-foreground: 220 10% 54.4%;
+
+        --popover: 220 45% 5.72%;
+        --popover-foreground: 220 10% 97.2%;
+
+        --card: 220 45% 5.72%;
+        --card-foreground: 220 10% 97.2%;
+
+        --border: 220 50% 13.2%;
+        --input: 220 50% 13.2%;
+
+        --primary: 220 100% 44%;
+        --primary-foreground: 220 10% 97.2%;
+
+        --secondary: 220 50% 13.2%;
+        --secondary-foreground: 220 10% 97.2%;
+
+        --accent: 220 50% 13.2%;
+        --accent-foreground: 220 10% 97.2%;
+
+        --destructive: 0 62.8% 30.6%;
+        --destructive-foreground: 220 10% 97.2%;
+
+        --ring: 220 100% 44%;
+
+        --radius: 0.5rem;
+    }
+
+    .dark {
+        --background: 216 100% 98.04%;
+        --foreground: 213.6 100% 4.9%;
+
+        --primary: 214.12 100% 50%;
+        --primary-foreground: 0 0% 100%;
+
+        --card: 216 100% 98.04%;
+        --card-foreground: 213.6 100% 4.9%;
+
+        --popover: 0 0% 100%;
+        --popover-foreground: 213.6 100% 4.9%;
+
+        --secondary: 214.74 100% 92.55%;
+        --secondary-foreground: 216 100% 0.98%;
+
+        --muted: 213.6 100% 95.1%;
+        --muted-foreground: 0 0% 40%;
+
+        --accent: 213.6 100% 95.1%;
+        --accent-foreground: 214.12 100% 50%;
+
+        --destructive: 0 84.2% 60.2%;
+        --destructive-foreground: 210 40% 98%;
+
+        --border: 0 0% 90.2%;
+        --input: 0 0% 90.2%;
+        --ring: 214.12 100% 50%;
+
+        --radius: 0.5rem;
+    }
+}
+
+@layer base {
+    * {
+        @apply border-border;
+    }
+    body {
+        @apply bg-background text-foreground;
+    }
+}
+
+.default-button {
+    @apply py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700
+}
+::-webkit-scrollbar {
+    width: 0px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #3b3b3b;
+}
+
+* {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+}
+
+* {
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+}
+
+
+*::-webkit-scrollbar {
+    width: 0px;
+}
+
+*::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: transparent !important;
+    border-radius: 20px;
+    border: 3px solid transparent;
+}
+
+* {
+    scrollbar-width: thin;
+    scrollbar-color: rgb(30, 31, 34) transparent;
+}
+
+::-webkit-scrollbar {
+    width: 0.4rem;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #3b3b3b;
+}
+
+.no-visible-scrollbar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    -webkit-overflow-scrolling: touch;
+}
+
+.no-visible-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+@layer utilities {
+    .heading {
+        @apply font-bold text-4xl md:text-5xl text-center;
+    }
+}
+
+::selection {
+    background-color: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
+}
+
+.dotPattern {
+    background-image: radial-gradient(rgb(35, 40, 68) 1px, transparent 1px);
+    background-size: 25px 25px;
+}
+
+.use-automation-zoom-in {
+    animation: automation-zoom-in 0.5s;
+}
+
+.card-mask {
+    background: radial-gradient(ellipse at center, rgba(0, 75, 224, 0.15), transparent);
+}
+
+.gradient {
+    background: conic-gradient(from 230.29deg at 51.63% 52.16%, rgb(36, 0, 255) 0deg, rgb(0, 135, 255) 67.5deg, rgb(108, 39, 157) 198.75deg, rgb(24, 38, 163) 251.25deg, rgb(54, 103, 196) 301.88deg, rgb(105, 30, 255) 360deg);
+}
+
+.lamp {
+    opacity: 1;
+    transform: translateY(-200px) rotate(180deg) scale(2) translateZ(0px);
+}
+
+@keyframes automation-zoom-in {
+    0% {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+

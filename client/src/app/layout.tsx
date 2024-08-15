@@ -1,15 +1,16 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "../../style/globals.css";
-import { dark } from '@clerk/themes';
+import { dark } from "@clerk/themes";
 import React from "react";
 import ReactQueryProvider from "@/app/providers/react-query-provider";
 import { Toaster } from "sonner";
 import { ThemeProvider } from "@/app/providers/theme-provider";
 import AuthGuard from "@/protected/auth-guard";
 import { ReduxProvider } from "@/app/providers/redux-provider";
-import { NextUIProvider } from "@nextui-org/react";
-import { ClerkProvider } from '@clerk/nextjs';
+import { ClerkProvider } from "@clerk/nextjs";
+import DynamicStyleLoader from "@/hook/use-dynamic-style-loader";
+import { ConditionalNextUIProvider } from "@/hook/use-conditional-NextUIProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -27,9 +28,10 @@ export default function RootLayout({
     <ReactQueryProvider>
       <ClerkProvider appearance={{ baseTheme: dark }}>
         <html lang="en">
+          <DynamicStyleLoader />
           <Toaster position="top-right" />
           <body
-            className={`${inter.className} dark:bg-gradient-to-r dark:from-stone-800 dark:via-stone-900 dark:to-black bg-gradient-to-r from-stone-200 via-stone-300 to-white`}
+            className={`${inter.className} min-h-screen bg-background text-foreground antialiased max-w-full overflow-x-hidden`}
           >
             <ThemeProvider
               attribute="class"
@@ -39,7 +41,9 @@ export default function RootLayout({
             >
               <AuthGuard>
                 <ReduxProvider>
-                  <NextUIProvider>{children}</NextUIProvider>
+                  <ConditionalNextUIProvider>
+                    {children}
+                  </ConditionalNextUIProvider>
                 </ReduxProvider>
               </AuthGuard>
             </ThemeProvider>
