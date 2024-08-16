@@ -81,6 +81,7 @@
     "react-query": "^3.39.3",
     "react-redux": "^9.1.2",
     "react-resizable-panels": "^2.0.19",
+    "scroller-motion": "^1.2.3",
     "sonner": "^1.4.41",
     "tailwind-merge": "^2.3.0",
     "tailwindcss-animate": "^1.0.7",

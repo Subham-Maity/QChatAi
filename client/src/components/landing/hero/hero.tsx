@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/shadcn/button";
 import { toast, Toaster } from "sonner";
 import { AdvancedVideo } from "@cloudinary/react";
 import { Cloudinary } from "@cloudinary/url-gen";
+import { useRouter } from "next/navigation";
 
 const Hero = () => {
   const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME!;
@@ -33,6 +34,7 @@ const Hero = () => {
   const handleMouseLeave = () => {
     setIsHovering(false);
   };
+  const router = useRouter();
   return (
     <Wrapper>
       <Toaster position="top-right" />
@@ -78,6 +80,9 @@ const Hero = () => {
                 <Button
                   size="sm"
                   className="rounded-full hidden lg:flex border border-foreground/20"
+                  onClick={() => {
+                    window.location.href = "/start";
+                  }}
                 >
                   Get Started
                   <ArrowRight className="w-4 h-4 ml-1" />
