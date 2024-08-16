@@ -26,7 +26,7 @@ const Hero = () => {
   const handleMouseEnter = () => {
     setIsHovering(true);
     if (myVideo) {
-      toast.warning("Video is loading, Please wait...", { duration: 3000 });
+      toast.warning("Video is loading, Please wait...", { duration: 1000 });
     }
   };
 

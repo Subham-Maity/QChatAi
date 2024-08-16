@@ -4,7 +4,7 @@ export const perks = [
   {
     icon: Icons.auth,
     title: "Sign Up",
-    info: "Create your free account to get started with Astra.",
+    info: "Create your free account to get started with QChatAI.",
   },
   {
     icon: Icons.customize,
@@ -21,33 +21,33 @@ export const perks = [
 export const features = [
   {
     icon: Icons.bolt,
-    title: "Fast Setup",
-    info: "Get your website up and running in minutes with our intuitive AI-powered builder.",
+    title: "Instant Data Access",
+    info: "Upload your documents and start interacting with them immediately through AI-powered chat.",
   },
   {
     icon: Icons.palette,
-    title: "Customizable Templates",
-    info: "Choose from a variety of stunning templates and customize them to suit your brand.",
+    title: "Contextual Understanding",
+    info: "Our system understands the context of your data, providing relevant responses and insights.",
   },
   {
     icon: Icons.seo,
-    title: "SEO Optimized",
-    info: "Built-in SEO features ensure your website ranks well on search engines.",
+    title: "Smart Search",
+    info: "Find the information you need within your data instantly using advanced retrieval techniques.",
   },
   {
     icon: Icons.monitor,
-    title: "Responsive Design",
-    info: "Your website will look great on any device, from desktops to mobile phones.",
+    title: "Seamless Interaction",
+    info: "Interact with your data smoothly on any device, from desktops to mobile phones.",
   },
   {
     icon: Icons.shop,
-    title: "E-Commerce Ready",
-    info: "Start selling online with our e-commerce features and integrations.",
+    title: "Data-Driven Decisions",
+    info: "Leverage AI to gain actionable insights from your data for informed decision-making.",
   },
   {
     icon: Icons.server,
-    title: "Secure Hosting",
-    info: "Enjoy peace of mind with secure and reliable hosting for your website.",
+    title: "Secure Data Handling",
+    info: "Your data is securely processed and stored, ensuring privacy and compliance.",
   },
 ];
 
