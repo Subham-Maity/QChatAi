@@ -2,6 +2,7 @@ import Hero from "@/components/landing/hero/hero";
 import Work from "@/components/landing/work/work";
 import Features from "@/components/landing/features/features";
 import Pricing from "@/components/landing/pricing/pricing";
+import Customer from "@/components/landing/customer/customer";
 
 const HomePage = () => {
   return (
@@ -10,6 +11,7 @@ const HomePage = () => {
       <Work />
       <Features />
       <Pricing />
+      <Customer />
     </section>
   );
 };

@@ -120,36 +120,35 @@ export const bentoCards = [
     alt: "Website launch and publication",
   },
 ];
-
 export const reviews = [
   {
-    name: "Jack",
-    username: "@jack",
-    body: "I've never seen anything like this before. It's amazing. I love it.",
+    name: "Amit",
+    username: "@amit",
+    body: "I've never seen anything like this before. Simply mind-blowing!",
   },
   {
-    name: "Jill",
-    username: "@jill",
-    body: "I don't know what to say. I'm speechless. This is amazing.",
+    name: "Priya",
+    username: "@priya",
+    body: "I'm genuinely impressed. This is next level, yaar!",
   },
   {
-    name: "John",
-    username: "@john",
-    body: "I'm at a loss for words. This is amazing. I love it.",
+    name: "Rahul",
+    username: "@rahul",
+    body: "Honestly, this is something else. Totally worth it!",
   },
   {
-    name: "Jane",
-    username: "@jane",
-    body: "I'm at a loss for words. This is amazing. I love it.",
+    name: "Sneha",
+    username: "@sneha",
+    body: "I’m really amazed by this. Absolutely fantastic!",
   },
   {
-    name: "Jenny",
-    username: "@jenny",
-    body: "I'm at a loss for words. This is amazing. I love it.",
+    name: "Rohit",
+    username: "@rohit",
+    body: "This is incredible. Can’t believe how good it is!",
   },
   {
-    name: "James",
-    username: "@james",
-    body: "I'm at a loss for words. This is amazing. I love it.",
+    name: "Neha",
+    username: "@neha",
+    body: "Seriously, this is too good. I’m loving it!",
   },
 ];
