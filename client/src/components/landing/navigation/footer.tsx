@@ -164,7 +164,7 @@ const Footer = () => {
 
       <div className="mt-8 border-t border-border/40 pt-4 md:pt-8 md:flex md:items-center md:justify-between w-full">
         <p className="text-sm text-muted-foreground mt-8 md:mt-0">
-          &copy; {new Date().getFullYear()} Astra AI INC. All rights reserved.
+          &copy; {new Date().getFullYear()} QChatAI AI INC. All rights reserved.
         </p>
       </div>
     </footer>

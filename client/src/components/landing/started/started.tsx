@@ -16,8 +16,8 @@ const Started = () => {
               From Idea to Launch <br /> Faster Than Ever
             </h2>
             <p className="text-muted-foreground mt-6 max-w-md mx-auto">
-              Build stunning websites with Astra&apos;s intuitive drag-and-drop
-              builder and powerful AI assistant
+              Build stunning websites with QChatAI&apos;s intuitive
+              drag-and-drop builder and powerful AI assistant
             </p>
             <Button variant="default" className="mt-6" asChild>
               <Link href="/sign-in">
