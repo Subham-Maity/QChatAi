@@ -8,17 +8,24 @@ import { ArrowRight, ChevronRight, Play } from "lucide-react";
 import { BorderBeam } from "@/components/ui/magicui/border-beam";
 import { Button } from "@/components/ui/shadcn/button";
 import { toast, Toaster } from "sonner";
-import dynamic from "next/dynamic";
-import useCloudinaryVideo from "@/hook/use-cloudinary-video";
-
-const ReactPlayer = dynamic(() => import("react-player/lazy"), { ssr: false });
+import { AdvancedVideo } from "@cloudinary/react";
+import { Cloudinary } from "@cloudinary/url-gen";
 
 const Hero = () => {
+  const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME!;
+  const cld = new Cloudinary({
+    cloud: {
+      cloudName: cloudName,
+    },
+  });
+  // Use the video with public ID, 'docs/walking_talking'.
+  const myVideo: any = cld.video("q-chat-ai/dash");
+  // Apply the transformation.
+  myVideo.quality("auto");
   const [isHovering, setIsHovering] = useState(false);
-  const { videoUrl, loading } = useCloudinaryVideo("q-chat-ai/dash");
   const handleMouseEnter = () => {
     setIsHovering(true);
-    if (loading) {
+    if (myVideo) {
       toast.warning("Video is loading, Please wait...", { duration: 3000 });
     }
   };
@@ -102,23 +109,13 @@ const Hero = () => {
                     isHovering ? "opacity-100" : "opacity-0"
                   }`}
                 >
-                  {!loading && videoUrl && (
-                    <ReactPlayer
-                      url={videoUrl}
-                      playing={isHovering}
-                      loop
-                      width="100%"
-                      height="100%"
-                      className="rounded-md lg:rounded-xl bg-foreground/10 shadow-2xl ring-1 ring-border"
-                      config={{
-                        file: {
-                          attributes: {
-                            style: { objectFit: "cover" },
-                          },
-                        },
-                      }}
-                    />
-                  )}
+                  <AdvancedVideo
+                    autoPlay
+                    loop
+                    muted
+                    cldVid={myVideo || ""}
+                    className="h-full w-full object-cover object-center lg:h-full lg:w-full rounded-2xl"
+                  />
                 </div>
                 {!isHovering && (
                   <div className="absolute inset-0 flex items-center justify-center">

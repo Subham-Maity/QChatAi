@@ -11,6 +11,8 @@
   "dependencies": {
     "@clerk/nextjs": "^5.1.2",
     "@clerk/themes": "^2.1.20",
+    "@cloudinary/react": "^1.13.0",
+    "@cloudinary/url-gen": "^1.20.0",
     "@hookform/resolvers": "^3.4.2",
     "@nextui-org/react": "^2.4.0",
     "@nextui-org/tooltip": "^2.0.34",
