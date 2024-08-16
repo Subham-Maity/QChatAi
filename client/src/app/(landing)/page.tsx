@@ -1,6 +1,7 @@
 import Hero from "@/components/landing/hero/hero";
 import Work from "@/components/landing/work/work";
 import Features from "@/components/landing/features/features";
+import Pricing from "@/components/landing/pricing/pricing";
 
 const HomePage = () => {
   return (
@@ -8,6 +9,7 @@ const HomePage = () => {
       <Hero />
       <Work />
       <Features />
+      <Pricing />
     </section>
   );
 };
