@@ -90,7 +90,7 @@ export class UploadService {
         };
 
         const obj = await this.s3.send(new GetObjectCommand(params));
-        const fileName = `../server/temp-s3/elliott${Date.now().toString()}.pdf`;
+        const fileName = `../server/temp-s3/xam-chat${Date.now().toString()}.pdf`;
 
         if (obj.Body instanceof Readable) {
           const file = fs.createWriteStream(fileName);
