@@ -27,12 +27,13 @@ import { RedisModule } from './redis/redis.module';
     QueueModule,
     RedisModule,
   ],
-  // providers: [
-  //   {
-  //     provide: APP_GUARD,
-  //     useClass: ClerkAuthGuard,
-  //   },
-  // ],
+  //You can comment out for dev branch 
+  providers: [
+    {
+      provide: APP_GUARD,
+      useClass: ClerkAuthGuard,
+    },
+  ],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
